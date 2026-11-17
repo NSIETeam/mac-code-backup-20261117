@@ -1,0 +1,13 @@
+{
+  "name": "siyue-frontend-checks",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test *.test.mts *.test.cjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "@types/node": "24.9.1"
+  }
+}

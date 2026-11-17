@@ -1,0 +1,7 @@
+.block-text { white-space: pre-wrap; margin-top: 16rpx; } .row > .field { min-width: 0; width: 50%; }
+
+.section-pager { display: grid; grid-template-columns: minmax(0, 1fr) 210rpx minmax(0, 1fr); gap: 16rpx; align-items: center; }
+.section-pager text { white-space: nowrap; text-align: center; font-size: 24rpx; }
+.section-pager button { width: 100%; min-width: 0; margin: 0; }
+.book-actions { display: flex; gap: 16rpx; flex-wrap: wrap; }
+.book-actions button { flex: 1; min-width: 200rpx; margin: 0; }

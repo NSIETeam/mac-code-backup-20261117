@@ -1,0 +1,8 @@
+.requirements { white-space: pre-wrap; overflow-wrap: anywhere; }
+textarea.requirements { width: 100%; min-height: 240rpx; padding: 24rpx; background: #f7f7f9; border: 2rpx solid #e5e5ea; border-radius: 24rpx; box-sizing: border-box; font-size: 28rpx; color: #1d1d1f; line-height: 1.7; }
+.class-choice { display: flex; align-items: center; gap: 14rpx; min-height: 88rpx; padding: 12rpx 0; box-sizing: border-box; }
+.submission { padding: 24rpx 0; border-bottom: 2rpx solid #e5e5ea; }
+.submission:last-child { border-bottom: 0; padding-bottom: 0; }
+.submission .row { flex-wrap: wrap; }
+.submission picker { flex: 1; min-width: 240rpx; }
+button.progress-entry { margin-bottom: 24rpx; }

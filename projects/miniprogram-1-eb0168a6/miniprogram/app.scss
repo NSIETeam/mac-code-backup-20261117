@@ -1,0 +1,114 @@
+// Shared geometry for every teacher and administration screen.
+$surface-radius: 32rpx;
+$control-radius: 24rpx;
+$badge-radius: 12rpx;
+$ink: #222e27;
+$muted: #77777d;
+$border: #e5e5ea;
+$outline-width: 2rpx;
+$control-height: 88rpx;
+$compact-height: 72rpx;
+$compact-width: 224rpx;
+
+page {
+  background: #f5f6f5;
+  color: $ink;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  font-size: 28rpx;
+  line-height: 1.5;
+}
+
+.page { padding: 24rpx 32rpx calc(64rpx + env(safe-area-inset-bottom)); max-width: 1100rpx; margin: auto; box-sizing: border-box; }
+.page.with-action-bar { padding-bottom: calc(200rpx + env(safe-area-inset-bottom)); }
+.hero { padding: 8rpx 0 16rpx; }
+.hero.row > .title { flex: 1; min-width: 0; }
+.title { font-size: 42rpx; font-weight: 700; line-height: 1.4; letter-spacing: -1rpx; margin: 12rpx 0; overflow-wrap: anywhere; }
+.muted { color: $muted; font-size: 25rpx; line-height: 1.7; overflow-wrap: anywhere; }
+.small { font-size: 23rpx; }
+
+.card { background: #fff; border: $outline-width solid $border; border-radius: $surface-radius; padding: 28rpx; margin-bottom: 24rpx; box-sizing: border-box; }
+.card-title { font-size: 31rpx; font-weight: 600; line-height: 1.45; margin-bottom: 16rpx; overflow-wrap: anywhere; }
+.card-chevron { flex-shrink: 0; color: $muted; font-size: 40rpx; line-height: 1; }
+.row { display: flex; align-items: center; gap: 18rpx; }
+.row > .card-title { margin-bottom: 0; flex: 1; min-width: 0; }
+.between { justify-content: space-between; }
+.grow { flex: 1; min-width: 0; }
+.wrap { flex-wrap: wrap; }
+.gap { margin-top: 24rpx; }
+.section-heading { margin-bottom: 20rpx; }
+.page > .section-heading:first-child { margin-top: 0; }
+.review-status { margin-bottom: 24rpx; }
+
+// Class specificity also overrides WeChat v2's default button width and margin.
+button.primary, button.secondary, button.quiet, button.danger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  height: $control-height;
+  min-height: $control-height;
+  padding: 0 24rpx;
+  margin: 0;
+  border: $outline-width solid $border;
+  border-radius: $control-radius;
+  box-sizing: border-box;
+  font-size: 27rpx;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+button::after { border: none; }
+button.primary { border-color: #28694a; background: #28694a; color: #fff; }
+button.secondary { background: #fff; color: $ink; border-color: $border; }
+button.quiet { background: #f0f2f5; color: $ink; }
+button.danger { background: #fff0ef; color: #b9352b; }
+button.mini { width: $compact-width; flex: 0 0 $compact-width; height: $compact-height; min-height: $compact-height; padding: 0 16rpx; font-size: 24rpx; }
+button.icon-button { width: $compact-height; height: $compact-height; min-height: $compact-height; flex: 0 0 $compact-height; padding: 0; }
+.edit-icon { display: block; width: 32rpx; height: 32rpx; }
+.action-row { align-items: stretch; }
+.action-row > button:not(.icon-button) { flex: 1; width: 0; }
+.action-row > .icon-button { flex: 0 0 $compact-height; }
+.control-row > button { height: $control-height; min-height: $control-height; }
+.control-row > picker { min-width: 0; }
+button.gap { margin-top: 24rpx; }
+button[disabled]:not([type]) { background: #e9e9ed; color: #929298; border-color: $border; opacity: 1; }
+.button-hover { opacity: .72; }
+.nav { display: flex; gap: 16rpx; margin: 20rpx 0 24rpx; }
+.page > .nav:first-child { margin-top: 0; }
+.page > quick-search + .nav, .page > quick-search + .section-heading { margin-top: 0; }
+.nav button { flex: 1; width: 0; font-size: 25rpx; padding-left: 16rpx; padding-right: 16rpx; }
+
+input, .picker { width: 100%; height: $control-height; min-height: $control-height; padding: 0 24rpx; background: #f7f7f9; border: $outline-width solid $border; border-radius: $control-radius; box-sizing: border-box; color: $ink; font-size: 28rpx; }
+.picker { display: block; line-height: $control-height - $outline-width * 2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.field { margin-top: 24rpx; }
+.label { display: block; color: $muted; font-size: 24rpx; margin-bottom: 12rpx; }
+.pill { border: $outline-width solid $border; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; height: 52rpx; max-width: 48%; padding: 0 16rpx; border-radius: $badge-radius; background: #f0f0f3; color: $muted; font-size: 22rpx; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; box-sizing: border-box; }
+.record-heading { height: 120rpx; }
+.record-heading .card-title { margin: 0; line-height: 44rpx; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.record-heading .muted { height: 64rpx; line-height: 32rpx; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.handout-row { height: 112rpx; }
+.handout-row .grow > view { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.warning { color: #946214; background: #fff7e7; padding: 20rpx 24rpx; border: $outline-width solid $border; border-radius: $control-radius; font-size: 25rpx; line-height: 1.7; margin: 16rpx 0; overflow-wrap: anywhere; }
+.error { color: #b9352b; overflow-wrap: anywhere; }
+.empty { padding: 64rpx 24rpx; text-align: center; color: $muted; line-height: 1.9; }
+.check-row { display: flex; align-items: center; gap: 14rpx; height: $control-height; min-height: $control-height; padding: 0; box-sizing: border-box; }
+.check-row > text { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+checkbox { flex-shrink: 0; transform: scale(.85); }
+checkbox .wx-checkbox-input { border: $outline-width solid $border; border-radius: 8rpx; }
+.question-image { display: block; width: 100%; margin-top: 16rpx; }
+.divider { height: 1rpx; background: $border; margin: 24rpx 0; }
+.footer-note { padding: 12rpx; color: $muted; font-size: 23rpx; line-height: 1.8; }
+.code { font-family: monospace; overflow-wrap: anywhere; }
+.action-bar { position: fixed; z-index: 10; bottom: calc(20rpx + env(safe-area-inset-bottom)); left: 24rpx; right: 24rpx; padding: 16rpx; border: $outline-width solid $border; border-radius: $surface-radius; background: rgba(255,255,255,.97); box-shadow: 0 8rpx 32rpx rgba(29,29,31,.08); box-sizing: border-box; }
+
+button.download-progress { position: relative; overflow: hidden; background: #fff; color: #171717; border: 1px solid #171717; }
+.download-fill { position: absolute; left: 0; top: 0; bottom: 0; background: #dedee2; pointer-events: none; transition: width .15s linear; }
+.download-label { position: relative; z-index: 1; }
+button.download-progress[disabled] { opacity: 1; color: #171717; }
+.download-progress.indeterminate .download-fill { animation: download-sweep 1.2s linear infinite; }
+@keyframes download-sweep { from { transform: translateX(-100%); } to { transform: translateX(300%); } }
+
+.tab-page{padding-bottom:calc(150rpx + env(safe-area-inset-bottom))}.surface{background:#fff;border-radius:28rpx;padding:20rpx;margin-bottom:24rpx}.section-label{font-size:26rpx;font-weight:600;color:#56645b;margin:28rpx 0 16rpx}.inline-actions{display:flex;align-items:center;flex-shrink:0;gap:0}button.svg-action{display:flex;align-items:center;justify-content:center;width:76rpx;height:80rpx;min-height:80rpx;margin:0;padding:0;border:0;border-radius:0;background:transparent;flex:0 0 76rpx;line-height:1}button.svg-action::after{border:0}.svg-action image{width:34rpx;height:34rpx}button.text-action{width:auto;height:72rpx;min-height:72rpx;padding:0 12rpx;margin:0;background:transparent;border:0;font-size:25rpx;color:#28694a;line-height:72rpx}.search-field{height:34px;min-height:34px;padding:0 14px;background:#ebeeeb;border:0;border-radius:12px;font-size:14px}.dialog-mask{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;padding:32rpx}.dialog{width:100%;max-width:640rpx;background:white;border-radius:28rpx;padding:32rpx;box-sizing:border-box}.dialog .row button{flex:1;width:0}.dialog .input{margin:12rpx 0 24rpx}

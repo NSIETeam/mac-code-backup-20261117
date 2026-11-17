@@ -1,0 +1,9 @@
+:host {display:block;}
+.compact-nav {padding-left:24rpx;padding-bottom:8px;box-sizing:border-box;}
+.compact-row {display:flex;align-items:center;gap:8rpx;}
+button.compact-back {display:flex;align-items:center;justify-content:center;flex:none;width:32px;height:32px;min-height:0;padding:0;margin:0;border:0;border-radius:8px;background:transparent;line-height:1;}
+button.compact-back::after {border:0;}
+.compact-back text {font-size:30px;font-weight:400;line-height:30px;}
+.compact-content {flex:1;min-width:0;}
+.compact-title {display:block;font-size:27rpx;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.compact-pressed {background:#e8edf3;}

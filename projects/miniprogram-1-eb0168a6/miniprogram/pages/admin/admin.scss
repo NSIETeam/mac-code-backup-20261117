@@ -1,0 +1,9 @@
+/* Shared layout is defined in app.scss. */
+
+.roster-row { height: 88rpx; padding: 0; border-bottom: 1rpx solid #f0f0f3; box-sizing: border-box; }
+.roster-row > text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.device-heading { flex-wrap: wrap; height: auto; min-height: 180rpx; }
+.device-heading > .grow { flex: 0 0 100%; width: 100%; }
+.device-heading > .grow .card-title, .device-heading > .grow .muted { white-space: normal; overflow: visible; text-overflow: clip; }
+.device-heading > .grow .muted { display: block; height: auto; }
+.device-heading > button.gap { margin-top: 0; }

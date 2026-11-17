@@ -1,0 +1,60 @@
+'use strict';
+const test = require('node:test'), assert = require('node:assert/strict');
+const fs = require('node:fs'), os = require('node:os'), path = require('node:path');
+const { execFile } = require('node:child_process'), { promisify } = require('node:util');
+const auth = require('../cli/auth-client.cjs'), { createBridge } = require('./bridge.cjs');
+const run = promisify(execFile);
+const permissions = ['crm.task.read','crm.task.write','crm.task.assign','crm.task.manage'];
+const input = {expectedManagementVersion:4,supervisorId:'EMP_2',reason:'合成转交'};
+const preview = {action:'transfer',batchId:'TB_1',managementVersion:4,selectedCount:0,assignableCount:0,blockedCount:0,
+  assignments:[],blocked:[],assignmentCounts:{},remainingUnassignedCount:2,fromSupervisorId:'EMP_1',toSupervisorId:'EMP_2',
+  startsAt:'2000-01-01T00:00:00Z',dueAt:'2000-01-02T00:00:00Z'};
+const receipt = {committed:true,batchId:'TB_1',operationId:'ROUTE_EVT_1',scopeStatus:'left_scope',batch:null,tasks:[]};
+test('MCP uses private original server preview and same key on lost transfer acknowledgement; revoked permission rejects replay', async t=>{
+  const root=fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(),'routing-mcp-'))),env={SIYUE_CONFIG_DIR:path.join(root,'config')};
+  const original=global.fetch,calls=[];let granted=[...permissions],attempts=0;
+  t.after(()=>{global.fetch=original;fs.rmSync(root,{recursive:true,force:true});});
+  auth.writeSession({server:'https://java.example/crm-api/v2/',token:'synthetic-token',apiVersion:'v2'},env);
+  global.fetch=async(url,options)=>{
+    calls.push({url:String(url),options});
+    if(String(url).endsWith('/identity/me'))return {ok:true,status:200,json:async()=>({code:'OK',data:{principalId:'EMP_1',permissions:granted}})};
+    if(String(url).endsWith('/commit')&&++attempts===1)throw new Error('simulated lost reply');
+    return {ok:true,status:200,json:async()=>({code:'OK',data:String(url).endsWith('/preview')?preview:receipt})};
+  };
+  const bridge=createBridge({env}),tools=await bridge.tools();
+  assert.equal(tools.find(item=>item.name==='siyue_preview_task_routing').inputSchema.oneOf.length,6);
+  const prepared=(await bridge.call('siyue_preview_task_routing',{operation:'task-routing-transfer',batchId:'TB_1',input})).structuredContent;
+  const planFile=path.join(env.SIYUE_CONFIG_DIR,'mcp-java-task-routing-plans',prepared.planId+'.json');
+  assert.equal(fs.statSync(planFile).mode&0o777,0o600);
+  const plan=JSON.parse(fs.readFileSync(planFile,'utf8'));
+  assert.deepEqual(plan.request,{batchId:'TB_1',input});assert.deepEqual(plan.expectedPreview,preview);
+  await assert.rejects(bridge.call('siyue_execute_task_routing',{planId:prepared.planId}));
+  const acknowledged=await bridge.call('siyue_execute_task_routing',{planId:prepared.planId});
+  assert.deepEqual(acknowledged.structuredContent,receipt);
+  const writes=calls.filter(call=>call.url.endsWith('/commit'));
+  assert.equal(writes.length,2);assert.equal(writes[0].options.body,writes[1].options.body);
+  assert.equal(writes[0].options.headers['Idempotency-Key'],writes[1].options.headers['Idempotency-Key']);
+  granted=['crm.task.read'];
+  assert(!(await bridge.tools()).some(item=>item.name==='siyue_preview_task_routing'));
+  const queryTool=(await bridge.tools()).find(item=>item.name==='siyue_query');
+  assert(!queryTool.inputSchema.properties.query.enum.includes('taskRoutingBatches'));
+  await assert.rejects(bridge.call('siyue_execute_task_routing',{planId:prepared.planId}),{code:'FORBIDDEN'});
+  await assert.rejects(bridge.call('siyue_preview_task_routing',{operation:'task-routing-transfer',batchId:'TB_1',input}),{code:'FORBIDDEN'});
+  assert.equal(calls.filter(call=>call.url.endsWith('/commit')).length,2);
+});
+test('CLI dispatch and capabilities include fixed routing operations and execute the original private plan',async t=>{
+  const root=fs.mkdtempSync(path.join(os.tmpdir(),'routing-cli-'));t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
+  const preload=path.join(root,'preload.cjs'),inputFile=path.join(root,'input.json'),planFile=path.join(root,'plan.json');
+  fs.writeFileSync(inputFile,JSON.stringify({batchId:'TB_1',input}),{mode:0o600});
+  fs.writeFileSync(preload,`const auth=require(${JSON.stringify(require.resolve('../cli/auth-client.cjs'))});
+const me={principalId:'EMP_1',permissions:${JSON.stringify(permissions)}};
+const client={apiVersion:'v2',server:'https://java.example/crm-api/v2/',request:async(endpoint,options)=>({code:'OK',data:endpoint==='identity/me'?me:endpoint.endsWith('/preview')?${JSON.stringify(preview)}:${JSON.stringify(receipt)}})};
+auth.readSession=()=>({apiVersion:'v2',server:client.server});auth.sessionClient=()=>client;`,{mode:0o600});
+  const cli=require.resolve('../cli/siyue-cli.cjs');
+  const invoke=async args=>JSON.parse((await run(process.execPath,['--require',preload,cli,...args])).stdout);
+  const capabilities=await invoke(['capabilities']);assert.equal(capabilities.operations.filter(op=>op.id.startsWith('crm.task.routing.')).length,6);
+  const prepared=await invoke(['plan','task-routing-transfer','--input',inputFile,'--out',planFile]);
+  assert.equal(prepared.preview.toSupervisorId,'EMP_2');assert.equal(prepared.commit,false);
+  assert.deepEqual(await invoke(['execute','--plan',planFile]),receipt);
+  assert.deepEqual(await invoke(['execute','--plan',planFile]),receipt);
+});

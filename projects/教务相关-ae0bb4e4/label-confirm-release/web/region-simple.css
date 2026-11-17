@@ -1,0 +1,13 @@
+dialog.region-workspace{overflow:auto}
+.region-workspace #region-editor.region-simple-trim{grid-template-columns:minmax(0,1fr)}
+.region-workspace .region-side{grid-column:2;grid-row:3;max-height:65vh;overflow:auto}
+.region-workspace .region-side .region-list{max-height:none;display:block;margin:12px 0}
+.region-workspace .region-current{padding:14px;border:1px solid var(--line);border-radius:10px;background:#f7f9fb}
+.region-workspace .region-current h3{margin-top:0}.region-workspace .region-current-status{font-size:13px}
+.region-workspace .region-simple .region-properties{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 0;border:0;border-bottom:1px solid var(--line);border-radius:0;margin-bottom:6px}
+.region-workspace .region-properties>span{overflow-wrap:anywhere}.region-workspace .region-properties>div{display:flex;flex-shrink:0;gap:4px}
+.region-workspace .region-simple .region-properties button{padding:7px 9px}
+.region-workspace .region-submit{grid-column:1/-1;border-top:1px solid var(--line);padding-top:12px;text-align:right}
+.region-workspace .region-submit .muted{font-size:13px}.region-workspace .region-pending-box{stroke:#b56b00;stroke-dasharray:6 3;fill:#ffb02018}
+.region-workspace .region-simple-trim .region-side{display:none}
+@media(max-width:800px){.region-workspace .region-side{max-height:none}.region-workspace .region-submit{text-align:left}.region-workspace .region-save{width:100%}}

@@ -1,0 +1,40 @@
+import {openHomeworkPdf} from '../../services/homework-pdf'
+import {api,run,confirm,requestKey,Workspace,settings,token,chooseNamedFile,upload} from '../../services/api'
+interface Collection {id:string;classId:string;className?:string;title:string;instructions:string;dueOn:string;state:string;revision:number}
+interface Detail {attachmentName?:string;onlineTest?:{label:string;stem:string}[];statistics:{expected:number;received:number;missing:number;pendingIdentity:number;late:number;reviewed:number;awaitingGrading:number};collection:Collection;className:string;sharePath:string|null;students:{id:string;name:string;submitted:boolean}[];submissions:{id:string;name:string;studentId:string|null;revision:number;submittedAt:string;photos:string[]}[]}
+const root='/academic-pilot'
+Page({
+ data:{onlineTest:false,questionText:'',reference:'',testStage:'初中',testSubject:'数学',subjects:['数学','语文','英语','物理','化学','生物','政治','历史','地理'],classId:'',allowed:false,loading:true,busy:false,error:'',classes:[] as {id:string;name:string;checked:boolean}[],classIds:[] as string[],title:'',instructions:'',dueOn:new Date(Date.now()+8*3600000).toISOString().slice(0,10),rows:[] as Collection[],detail:null as Detail|null,canReview:false,creating:false,unsubmitted:'',pending:0},key:requestKey(),owner:'',
+ async onLoad(q:Record<string,string>){this.owner=token();this.setData({classId:q.classId||''});return run(async()=>{try{const me=await api<{canReview:boolean}>(root+'/me');const w=await api<Workspace>('/workspace');if(this.owner!==token())return;this.setData({allowed:true,canReview:me.canReview,classes:w.classes.map(c=>({...c,checked:c.id===q.classId})),classIds:q.classId?[q.classId]:[]});if(q.id)await this.loadDetail(q.id);else await this.refresh()}finally{this.setData({loading:false})}})},
+ onShow(){if(this.owner&&this.owner!==token()){this.setData({allowed:false,detail:null,rows:[],classes:[],classIds:[],canReview:false});wx.navigateBack()}},
+ async onPullDownRefresh(){if(!this.data.allowed||this.data.busy){wx.stopPullDownRefresh();return}await run(async()=>{try{if(this.data.detail)await this.loadDetail(this.data.detail.collection.id);else await this.refresh()}finally{wx.stopPullDownRefresh()}})},
+ async refresh(){const rows=await api<Collection[]>(root+'/collections');if(this.owner===token())this.setData({rows:rows.map(r=>({...r,className:this.data.classes.find(c=>c.id===r.classId)?.name||''}))})},
+ selectClasses(e:WechatMiniprogram.CheckboxGroupChange){this.key=requestKey();this.setData({classIds:e.detail.value})},
+ title(e:WechatMiniprogram.Input){this.key=requestKey();this.setData({title:e.detail.value})},requirements(e:WechatMiniprogram.Input){this.key=requestKey();this.setData({instructions:e.detail.value})},date(e:WechatMiniprogram.PickerChange){this.key=requestKey();this.setData({dueOn:String(e.detail.value)})},
+ testMode(e:WechatMiniprogram.SwitchChange){this.key=requestKey();this.setData({onlineTest:e.detail.value})},questionText(e:WechatMiniprogram.Input){this.key=requestKey();this.setData({questionText:e.detail.value})},reference(e:WechatMiniprogram.Input){this.key=requestKey();this.setData({reference:e.detail.value})},testSubject(e:WechatMiniprogram.PickerChange){this.setData({testSubject:this.data.subjects[Number(e.detail.value)]})},testStage(e:WechatMiniprogram.PickerChange){this.setData({testStage:['小学','初中','高中'][Number(e.detail.value)]})},
+ create(){if(this.data.busy)return;return run(async()=>{this.setData({busy:true});try{if(this.data.onlineTest&&(!this.data.questionText.trim()||!this.data.reference.trim()))throw Error('请填写测验题目和参考答案');const rows=await api<Collection[]>(root+'/collections','POST',{classIds:this.data.classIds,title:this.data.title,instructions:this.data.instructions,dueOn:this.data.dueOn,requestKey:this.key});if(this.data.onlineTest){const questions=this.data.questionText.split('\n').map(x=>x.trim()).filter(Boolean).map((stem,i)=>({label:String(i+1),stem}));for(const row of rows)await api(root+'/collections/'+row.id+'/online-test','PUT',{questions,referenceAnswer:this.data.reference,subject:this.data.testSubject,stage:this.data.testStage});}this.setData({creating:false});await this.refresh()}finally{this.setData({busy:false})}})},
+ add(){this.key=requestKey();this.setData({creating:true,detail:null})},back(){this.setData({creating:false,detail:null});return run(()=>this.refresh())},
+ attachPdf(){if(this.data.busy)return;return run(async()=>{
+  const collection=this.data.detail?.collection
+  if(!collection||collection.state!=='draft')return
+  this.setData({busy:true})
+  try{
+   const file=await chooseNamedFile(['pdf'])
+   if(!file||this.owner!==token())return
+   if(file.size>3*1024*1024)throw Error('PDF 最大 3 MiB')
+   await upload(root+'/collections/'+collection.id+'/attachment',file.path,{revision:String(collection.revision),name:file.name})
+   await this.loadDetail(collection.id)
+  }finally{this.setData({busy:false})}
+ })},
+ openPdf(){const id=this.data.detail?.collection.id;if(id)return run(()=>openHomeworkPdf(settings.baseUrl+'/api'+root+'/collections/'+id+'/attachment',{Authorization:'Bearer '+token()}));return undefined},
+ async loadDetail(id:string){const detail=await api<Detail>(root+'/collections/'+id);if(this.owner!==token())return;this.setData({detail,creating:false,unsubmitted:detail.students.filter(s=>!s.submitted).map(s=>s.name).join('、'),pending:detail.submissions.filter(s=>!s.studentId).length})},
+ open(e:WechatMiniprogram.TouchEvent){return run(()=>this.loadDetail(e.currentTarget.dataset.id))},
+ approve(){if(this.data.busy)return;return run(async()=>{const d=this.data.detail;if(!d||!await confirm('确认班级、作业内容和截止日期无误，允许分享到家长群？','教务确认'))return;this.setData({busy:true});try{await api(root+'/collections/'+d.collection.id+'/approve','POST',{revision:d.collection.revision,confirmed:true});await this.loadDetail(d.collection.id)}finally{this.setData({busy:false})}})},
+ close(){if(this.data.busy)return;return run(async()=>{const d=this.data.detail;if(!d||!await confirm('关闭后，家长将无法继续提交。'))return;this.setData({busy:true});try{await api(root+'/collections/'+d.collection.id+'/close','POST',{revision:d.collection.revision});await this.loadDetail(d.collection.id)}finally{this.setData({busy:false})}})},
+ assign(e:WechatMiniprogram.PickerChange){if(this.data.busy)return;return run(async()=>{const d=this.data.detail;if(!d)return;const sub=d.submissions.find(x=>x.id===e.currentTarget.dataset.id),student=d.students[Number(e.detail.value)];if(!sub||!student||!await confirm('确认“'+sub.name+'”提交的作业属于 '+student.name+'？'))return;this.setData({busy:true});try{await api(root+'/collection-submissions/'+sub.id+'/student','PUT',{revision:sub.revision,studentId:student.id});await this.loadDetail(d.collection.id)}finally{this.setData({busy:false})}})},
+ photos(e:WechatMiniprogram.TouchEvent){return run(async()=>{const sub=this.data.detail?.submissions.find(x=>x.id===e.currentTarget.dataset.id);if(!sub)return;wx.showLoading({title:'读取照片'});try{const urls:string[]=[];for(const id of sub.photos){const path=await new Promise<string>((resolve,reject)=>wx.downloadFile({url:settings.baseUrl+'/api'+root+'/collection-photos/'+id,header:{Authorization:'Bearer '+token()},success:r=>r.statusCode===200?resolve(r.tempFilePath):reject(Error('照片读取失败')),fail:()=>reject(Error('照片读取失败'))}));urls.push(path)}wx.previewImage({urls})}finally{wx.hideLoading()}})},
+ learning(){const id=this.data.detail?.collection.id;if(id)wx.navigateTo({url:"/pages/homework-review/homework-review?id="+encodeURIComponent(id)})},
+ todos(){wx.navigateTo({url:"/pages/teacher-todos/teacher-todos"+(this.data.classId?"?classId="+encodeURIComponent(this.data.classId):"" )})},
+ progress(){const id=this.data.detail?.collection.classId||this.data.classId;if(id)wx.navigateTo({url:'/pages/student-progress/student-progress?classId='+encodeURIComponent(id)})},
+ onShareAppMessage(){const d=this.data.detail;return d?.sharePath?{title:d.className+'｜'+d.collection.title,path:d.sharePath}:{title:'思跃',path:'/pages/login/login'}}
+})

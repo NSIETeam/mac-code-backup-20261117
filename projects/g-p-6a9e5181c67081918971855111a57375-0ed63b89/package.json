@@ -1,0 +1,6 @@
+{
+  "name": "zhengxin-ai-maoke-workbench",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {"dev": "node server.mjs", "build": "node -e \"const fs=require('fs'); for(const f of ['index.html','styles.css','script.js','server.mjs','icons.svg']) if(!fs.existsSync(f)) process.exit(1); console.log('build ok')\""}
+}

@@ -1,0 +1,402 @@
+/* Collaboration workspace only. Loaded after the shared iOS 7 platform theme. */
+body[data-siyue-platform="collaboration"] .collaboration-workspace {
+  --workspace-line: var(--ios-lighter-line, #e6e6eb);
+  --workspace-muted: var(--ios-secondary, #62626b);
+  background: var(--ios-surface, #fff);
+  color: var(--ios-ink, #1c1c1e);
+  min-width: 0;
+}
+
+body[data-siyue-platform="collaboration"] .collaboration-workspace > .app-header.compact-header {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  min-height: 56px;
+  margin: 0;
+  padding: 0 24px;
+  gap: 20px;
+  flex-wrap: nowrap;
+  border-bottom: 1px solid var(--workspace-line);
+}
+body[data-siyue-platform="collaboration"] .compact-header .collab-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+body[data-siyue-platform="collaboration"] .collab-breadcrumb > :last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+body[data-siyue-platform="collaboration"] .collab-breadcrumb > a { flex: none; }
+body[data-siyue-platform="collaboration"] .compact-header .main-nav {
+  margin: 0;
+  gap: 22px;
+  flex: none;
+  height: auto;
+  order: initial;
+  width: auto;
+}
+body[data-siyue-platform="collaboration"] .compact-header .main-nav a { font-size: 13px; }
+body[data-siyue-platform="collaboration"] .compact-header .header-account {
+  flex: none;
+  gap: 14px;
+  flex-wrap: nowrap;
+  margin-left: 0;
+  font-size: 12px;
+}
+body[data-siyue-platform="collaboration"] .compact-header .header-account button { white-space: nowrap; font-size: 12px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace > main {
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  padding: 24px;
+  margin: 0;
+}
+body[data-siyue-platform="collaboration"] .collaboration-workspace > footer {
+  width: auto;
+  max-width: none;
+  margin: 0 24px;
+  padding: 16px 0;
+  border-color: var(--workspace-line);
+  color: var(--workspace-muted);
+  font-size: 11px;
+}
+
+/* A single working toolbar, with controls wrapping only when necessary. */
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  margin: 0 0 18px;
+}
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-toolbar .filter-tabs {
+  display: flex;
+  gap: 18px;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+body[data-siyue-platform="collaboration"] .collaboration-workspace .filter-tabs button {
+  padding: 9px 0;
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-toolbar > .search {
+  flex: 1 1 180px;
+  width: auto;
+  min-width: 140px;
+  max-width: 320px;
+  margin-left: auto;
+  height: 36px;
+  padding: 7px 11px;
+}
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-actions {
+  display: flex;
+  align-items: center;
+  flex: none;
+  gap: 8px;
+  margin: 0;
+}
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-actions > button,
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-toolbar > button {
+  min-height: 36px;
+  padding: 7px 12px;
+  white-space: nowrap;
+  font-size: 13px;
+}
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-more summary { padding: 8px; font-size: 13px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-more-panel { z-index: 8; }
+
+/* Explicitly restore desktop columns hidden by older shared theme breakpoints. */
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table {
+  width: 100%;
+  overflow: visible;
+  border: 1px solid var(--workspace-line);
+  border-radius: 7px;
+}
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table table {
+  width: 100%;
+  min-width: 0;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table thead { display: table-header-group; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table :is(th, td),
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table td:not(:first-child) {
+  display: table-cell;
+  min-width: 0;
+  max-width: none;
+  padding: 12px 14px;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--workspace-line);
+  white-space: normal;
+  overflow-wrap: anywhere;
+  font-size: 12px;
+  line-height: 1.5;
+}
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table th {
+  padding-block: 10px;
+  color: var(--workspace-muted);
+  background: #f8f9fc;
+  text-align: left;
+  font-weight: 400;
+}
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table th:first-child { width: 36%; border-top-left-radius: 7px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table th:nth-child(2) { width: 11%; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table th:nth-child(3) { width: 12%; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table th:nth-child(4) { width: 18%; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table th:last-child { width: 23%; border-top-right-radius: 7px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table tbody tr:last-child td { border-bottom: 0; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table tbody tr:hover { background: #f5f9ff; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table .click-row:focus-visible { outline: 2px solid var(--ios-blue, #0068da); outline-offset: -2px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table .project-name { display: block; font-size: 13px; line-height: 1.6; font-weight: 600; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table td.title small.project-summary {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-top: 4px;
+  color: var(--workspace-muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table .project-repo { font-size: 11px; margin-top: 3px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table .person { white-space: normal; font-size: 12px; gap: 6px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table .flask { width: 16px; height: 16px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table .next-node small { font-size: 11px; margin-top: 4px; color: var(--workspace-muted); }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-mobile-summary { display: none; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-progress { display: grid; gap: 5px; font-size: 11px; font-variant-numeric: tabular-nums; color: var(--workspace-muted); }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-progress progress { display: block; width: 80px; max-width: 100%; height: 4px; border: 0; border-radius: 3px; overflow: hidden; appearance: none; background: #e9edf3; accent-color: var(--ios-blue-fill, #007aff); }
+body[data-siyue-platform="collaboration"] .collaboration-workspace progress::-webkit-progress-bar { background: #e9edf3; border-radius: 3px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace progress::-webkit-progress-value { background: var(--ios-blue-fill, #007aff); border-radius: 3px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace progress::-moz-progress-bar { background: var(--ios-blue-fill, #007aff); border-radius: 3px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .table-hint { margin: 12px 0 18px; font-size: 11px; color: var(--workspace-muted); }
+
+/* Project context remains compact; the longer description is available on demand. */
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap; margin: 0 0 10px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-heading h1 { font-size: 24px; font-weight: 600; line-height: 1.45; letter-spacing: -.3px; overflow-wrap: anywhere; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-heading :is(.project-title,.heading) { margin: 0; gap: 10px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-heading .actions { padding: 0; gap: 8px; flex-wrap: wrap; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-heading .actions button { padding: 6px 10px; font-size: 12px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-heading .project-title { min-width: 0; flex: 1 1 300px; flex-wrap: wrap; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-heading .project-title > a { flex: none; font-size: 20px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-heading-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; color: var(--workspace-muted); }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-heading-meta :is(.person,button) { font-size: 12px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-heading-meta .flask { width: 18px; height: 18px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-about { padding: 0 0 14px; margin: 0 0 8px; color: var(--workspace-muted); font-size: 12px; line-height: 1.7; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-about > summary { width: 100%; padding: 4px 0; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-about > summary span { margin-left: 12px; color: var(--workspace-muted); }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-about > div { padding: 16px 18px; margin-top: 10px; border: 1px solid var(--workspace-line); border-radius: 6px; background: #fafbfe; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-about h3 { font-size: 12px; margin: 0 0 6px; color: var(--ios-ink, #1c1c1e); }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-about p + h3 { margin-top: 16px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-about p { max-width: 1000px; margin: 10px 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace > main > .tabs { gap: 24px; margin: 0 0 18px; border-bottom: 1px solid var(--workspace-line); }
+body[data-siyue-platform="collaboration"] .collaboration-workspace > main > .tabs button { padding: 10px 0; font-size: 13px; }
+
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 12px; margin: 0 0 16px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-toolbar #task-search { flex: 1 1 180px; max-width: 320px; min-width: 140px; width: auto; height: 36px; padding: 7px 11px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-toolbar #task-status { height: 36px; padding: 6px 10px; font-size: 12px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-scope { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-scope button { border-color: transparent; font-size: 12px; padding: 6px 9px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-scope button.active { background: var(--ios-blue-tint, #e9f3ff); border-color: transparent; color: var(--ios-blue, #0068da); }
+body[data-siyue-platform="collaboration"] .collaboration-workspace button.task-scope { background: transparent; border-color: transparent; font-size: 12px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace button.task-scope.active { background: var(--ios-blue-tint, #e9f3ff); border-color: transparent; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-result-summary { margin: -4px 0 12px; color: var(--workspace-muted); font-size: 11px; line-height: 1.5; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .view-switch { display: inline-flex; flex: none; margin-left: auto; padding: 2px; gap: 2px; background: #f0f2f6; border-radius: 6px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .view-switch button { min-height: 30px; border: 0; background: transparent; color: var(--workspace-muted); font-size: 12px; padding: 5px 10px; border-radius: 4px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .view-switch button.active,
+body[data-siyue-platform="collaboration"] .collaboration-workspace .view-switch button[aria-pressed="true"] { background: #fff; color: var(--ios-blue, #0068da); box-shadow: 0 1px 3px #19264d12; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-list { border: 1px solid var(--workspace-line); border-radius: 7px; overflow: hidden; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-list .task-row {
+  display: grid;
+  grid-template-columns: 12px minmax(0, 1fr) 76px 140px 120px 52px;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin: 0;
+  padding: 12px 14px;
+  border: 0;
+  border-bottom: 1px solid var(--workspace-line);
+  border-radius: 0;
+  background: #fff;
+  color: var(--ios-ink, #1c1c1e);
+  text-align: left;
+  font-size: 12px;
+  line-height: 1.6;
+  box-shadow: none;
+}
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-list > :last-child .task-row { border-bottom: 0; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-list .task-row:hover { background: #f5f9ff; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-row > * { min-width: 0; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-row strong { display: block; font-size: 13px; font-weight: 500; overflow-wrap: anywhere; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-row small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--workspace-muted); font-size: 11px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-row .person { font-size: 12px; white-space: normal; gap: 6px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-row .avatar { width: 22px; height: 22px; font-size: 9px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-row :is(.task-row-due,.task-row-nodes) { color: var(--workspace-muted); font-size: 11px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-row .task-row-nodes { text-align: right; white-space: nowrap; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .state-dot { display: inline-block; flex: none; width: 10px; height: 10px; border: 1.5px solid #8e99ab; border-radius: 50%; background: #fff; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace :is(.state-dot.in_progress,.state-dot[data-state="in_progress"]) { border-color: #007aff; background: #d9eaff; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace :is(.state-dot.blocked,.state-dot[data-state="blocked"]) { border-color: #d95047; background: #fbe4e1; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace :is(.state-dot.review,.state-dot[data-state="review"]) { border-color: #b5801b; background: #fff0c9; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace :is(.state-dot.done,.state-dot[data-state="done"]) { border-color: #30865c; background: #30865c; }
+
+/* Cards open details. There are deliberately no drag handles or grab cursors. */
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-board { display: grid; grid-template-columns: repeat(5, minmax(215px, 1fr)); gap: 14px; align-items: start; overflow-x: auto; padding: 0 0 16px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-column { min-width: 0; min-height: 200px; padding: 10px; background: #f7f8fb; border: 1px solid var(--workspace-line); border-radius: 7px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-column > h3 { display: flex; align-items: center; gap: 8px; margin: 0; padding: 2px 2px 12px; font-size: 12px; line-height: 1.5; font-weight: 500; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-column > h3 > :last-child:not(.state-dot) { margin-left: auto; color: var(--workspace-muted); font-size: 11px; font-weight: 400; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-board .task-card { display: block; width: 100%; min-width: 0; margin: 0 0 9px; padding: 12px; text-align: left; background: #fff; border: 1px solid var(--workspace-line); border-radius: 6px; color: var(--ios-ink, #1c1c1e); box-shadow: none; cursor: pointer; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-board .task-card:last-child { margin-bottom: 0; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-column-items > div + div { margin-top: 9px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-board .task-card:hover { background: #fff; border-color: #a8c8ee; box-shadow: none; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-board .task-card strong { display: block; font-size: 13px; line-height: 1.6; font-weight: 500; margin: 0 0 7px; overflow-wrap: anywhere; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-board .task-card > :is(p, small) { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: normal; color: var(--workspace-muted); font-size: 11px; line-height: 1.65; margin: 0 0 12px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-board .task-card > :is(.task-card-description,.task-blocker) { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: normal; overflow-wrap: anywhere; color: var(--workspace-muted); font-size: 11px; line-height: 1.65; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-board .task-card > .task-blocker { color: #ac4038; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-board .task-card > small:last-child { margin: 8px 0 0; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-card :is(footer,.task-card-footer) { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; width: auto; margin: 10px 0 0; padding: 8px 0 0; border-top: 1px solid #eff0f4; color: var(--workspace-muted); font-size: 11px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-card :is(footer,.task-card-footer) .person { gap: 5px; font-size: 11px; white-space: normal; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-card .avatar { width: 21px; height: 21px; font-size: 9px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-column .empty { padding: 24px 10px; background: transparent; font-size: 12px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .task-column-empty { padding: 14px 2px; color: var(--workspace-muted); font-size: 11px; margin: 0; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-records { margin: 24px 0 0; padding-top: 18px; border-top: 1px solid var(--workspace-line); }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-records > :is(h2,h3) { font-size: 15px; margin: 0 0 12px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-records > summary { padding: 0 0 14px; font-size: 13px; cursor: pointer; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-records > summary span { margin-left: 8px; color: var(--workspace-muted); font-size: 11px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-record-cards { display: grid; grid-template-columns: repeat(auto-fill,minmax(240px,1fr)); gap: 10px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .project-record-cards > .action-card { margin: 0; }
+
+body[data-siyue-platform="collaboration"] .collaboration-workspace .todo-toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 16px; margin: 0 0 16px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .todo-toolbar :is(input,select) { height: 36px; padding: 7px 10px; font-size: 12px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .todo-toolbar .search { flex: 1 1 180px; max-width: 320px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .todo-toolbar .filter-tabs { display: flex; flex-wrap: wrap; gap: 18px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .todo-toolbar > .muted { font-size: 11px; margin-left: auto; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .todo-list { border: 1px solid var(--workspace-line); border-radius: 7px; overflow: hidden; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .todo-list .todo-row { display: grid; grid-template-columns: 12px minmax(0,1fr) auto; align-items: center; gap: 12px; width: 100%; padding: 14px; border: 0; border-bottom: 1px solid var(--workspace-line); border-radius: 0; background: #fff; color: var(--ios-ink, #1c1c1e); text-align: left; box-shadow: none; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .todo-list .todo-row:last-child { border-bottom: 0; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .todo-list .todo-row:hover { background: #f5f9ff; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .todo-row-content { min-width: 0; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .todo-row-content strong { display: block; font-size: 13px; font-weight: 500; line-height: 1.65; overflow-wrap: anywhere; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .todo-row-content small { display: block; font-size: 11px; line-height: 1.6; color: var(--workspace-muted); }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .todo-project { display: block; color: var(--workspace-muted); font-size: 11px; line-height: 1.5; margin-top: 4px; }
+body[data-siyue-platform="collaboration"] .collaboration-workspace .todo-row-content .todo-project { margin: 0 0 4px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+
+/* Detail drawer is scoped by its own class; edit/code dialogs retain their size. */
+body[data-siyue-platform="collaboration"] dialog.collaboration-drawer {
+  position: fixed;
+  inset: 0 0 0 auto;
+  box-sizing: border-box;
+  width: min(600px, 95vw);
+  max-width: 100vw;
+  height: 100dvh;
+  max-height: 100dvh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border: 0;
+  border-left: 1px solid var(--ios-line, #d7d7df);
+  border-radius: 0;
+  box-shadow: -12px 0 40px #1c1c1e18;
+  overscroll-behavior: contain;
+}
+body[data-siyue-platform="collaboration"] dialog.collaboration-drawer > :is(.heading,.drawer-header) {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin: 0;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--ios-line, #d7d7df);
+  background: var(--ios-surface, #fff);
+}
+body[data-siyue-platform="collaboration"] dialog.collaboration-drawer > :is(.heading,.drawer-header) h2 { font-size: 18px; line-height: 1.6; overflow-wrap: anywhere; }
+body[data-siyue-platform="collaboration"] dialog.collaboration-drawer > :is(.heading,.drawer-header) button { flex: none; min-height: 32px; padding: 4px 8px; color: var(--ios-blue, #0068da); }
+body[data-siyue-platform="collaboration"] dialog.collaboration-drawer > :not(.heading,.drawer-header,.drawer-body,.dialog-content) { margin-left: 24px; margin-right: 24px; }
+body[data-siyue-platform="collaboration"] dialog.collaboration-drawer > :is(.drawer-body,.dialog-content) { padding: 20px 24px 28px; min-width: 0; }
+body[data-siyue-platform="collaboration"] dialog.collaboration-drawer .task-detail-properties { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; font-size: 12px; line-height: 1.6; color: var(--ios-secondary, #62626b); }
+body[data-siyue-platform="collaboration"] dialog.collaboration-drawer .task-detail-actions { margin: 18px 0 24px; gap: 10px 16px; }
+body[data-siyue-platform="collaboration"] dialog.collaboration-drawer .task-detail-actions button { font-size: 12px; }
+body[data-siyue-platform="collaboration"] dialog.collaboration-drawer .task-detail-section { margin: 24px 0 0; }
+body[data-siyue-platform="collaboration"] dialog.collaboration-drawer .task-detail-section > h3 { font-size: 13px; margin: 0 0 10px; }
+body[data-siyue-platform="collaboration"] dialog.collaboration-drawer .task-detail-section > h3 span { font-size: 11px; font-weight: 400; margin-left: 7px; color: var(--ios-secondary, #62626b); }
+body[data-siyue-platform="collaboration"] dialog.collaboration-drawer .task-detail-section > p { font-size: 13px; line-height: 1.9; white-space: pre-wrap; overflow-wrap: anywhere; margin: 0; }
+body[data-siyue-platform="collaboration"] dialog.collaboration-drawer .task-detail-nodes .action-card { border-color: var(--ios-line, #d7d7df); }
+body[data-siyue-platform="collaboration"] dialog.collaboration-drawer .drawer-breadcrumb { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 0 16px; font-size: 12px; color: var(--ios-secondary, #62626b); }
+body[data-siyue-platform="collaboration"] dialog.collaboration-drawer .drawer-breadcrumb button { font-size: 12px; }
+body[data-siyue-platform="collaboration"] dialog.collaboration-drawer .action-body { font-size: 13px; line-height: 1.8; }
+body[data-siyue-platform="collaboration"] dialog.collaboration-drawer .node-tools { display: flex; flex-wrap: wrap; gap: 8px; }
+body[data-siyue-platform="collaboration"] dialog.collaboration-drawer .node-tools button { font-size: 12px; padding: 7px 10px; }
+
+@media (max-width: 1100px) {
+  body[data-siyue-platform="collaboration"] .compact-header .header-account > span { display: none; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .project-toolbar .filter-tabs { gap: 14px; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table :is(th,td),
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table td:not(:first-child) { padding-inline: 10px; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .task-list .task-row { grid-template-columns: 10px minmax(0,1fr) 72px 110px 100px 45px; gap: 8px; }
+}
+
+@media (max-width: 700px) {
+  body[data-siyue-platform="collaboration"] .collaboration-workspace > .app-header.compact-header { min-height: 0; padding: 10px 16px 0; flex-wrap: wrap; gap: 6px 12px; }
+  body[data-siyue-platform="collaboration"] .compact-header .collab-breadcrumb { flex: 1 1 150px; font-size: 12px; gap: 7px; }
+  body[data-siyue-platform="collaboration"] .compact-header .main-nav { flex-basis: 100%; order: 3; height: 36px; gap: 24px; }
+  body[data-siyue-platform="collaboration"] .compact-header .main-nav a { font-size: 12px; }
+  body[data-siyue-platform="collaboration"] .compact-header .header-account { margin-left: auto; }
+  body[data-siyue-platform="collaboration"] .compact-header .header-account button { font-size: 11px; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace > main { padding: 18px 16px 24px; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace > footer { margin-inline: 16px; font-size: 10px; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .project-toolbar { gap: 10px; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .project-toolbar .filter-tabs { flex-basis: 100%; justify-content: flex-start; gap: 16px; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .filter-tabs button { font-size: 12px; padding-block: 7px; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .project-toolbar > .search { flex: 1 1 100px; min-width: 90px; max-width: none; margin: 0; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .project-actions { gap: 4px; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .project-actions > button { padding-inline: 9px; font-size: 12px; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table thead,
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table td:not(:first-child) { display: none; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table :is(table,tbody,tr,td.title) { display: block; width: 100%; min-width: 0; max-width: none; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table td.title { padding: 14px; border: 0; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table tbody tr + tr { border-top: 1px solid var(--workspace-line); }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table .project-name { font-size: 14px; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .project-table td.title small.project-summary { -webkit-line-clamp: 2; margin-top: 5px; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .project-mobile-summary { display: grid; gap: 7px; margin-top: 11px; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .project-mobile-summary > div { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .project-mobile-summary small { margin-top: 0; font-size: 11px; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .project-mobile-summary .project-progress { display: flex; align-items: center; gap: 7px; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .project-heading { align-items: flex-start; gap: 10px; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .project-heading h1 { font-size: 21px; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .project-heading .actions { width: auto; max-width: none; justify-content: flex-start; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .task-toolbar { gap: 10px; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .task-toolbar #task-search { flex: 1 1 140px; max-width: none; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .task-scope { margin-left: auto; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .view-switch { margin-left: 0; margin-right: auto; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .task-toolbar > button { font-size: 12px; padding-inline: 10px; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .task-list .task-row { grid-template-columns: 10px minmax(0,1fr) auto; gap: 5px 9px; padding: 12px; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .task-row .task-row-title { grid-column: 2 / -1; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .task-row .task-row-state { grid-column: 2; grid-row: 2; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .task-row .task-row-owner { grid-column: 2; grid-row: 3; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .task-row .task-row-due { grid-column: 3; grid-row: 3; text-align: right; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .task-row .task-row-nodes { grid-column: 3; grid-row: 2; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .task-row .state-dot { align-self: start; margin-top: 5px; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .task-board { grid-template-columns: 1fr; overflow: visible; gap: 14px; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .task-column { min-height: 0; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .todo-list .todo-row { grid-template-columns: 10px minmax(0,1fr) auto; gap: 9px; padding: 12px; }
+  body[data-siyue-platform="collaboration"] .collaboration-workspace .todo-row-content strong { font-size: 13px; }
+  body[data-siyue-platform="collaboration"] dialog.collaboration-drawer { width: 100vw; border-left: 0; }
+  body[data-siyue-platform="collaboration"] dialog.collaboration-drawer > :is(.heading,.drawer-header) { padding: 15px 16px; }
+  body[data-siyue-platform="collaboration"] dialog.collaboration-drawer > :is(.heading,.drawer-header) h2 { font-size: 17px; }
+  body[data-siyue-platform="collaboration"] dialog.collaboration-drawer > :not(.heading,.drawer-header,.drawer-body,.dialog-content) { margin-inline: 16px; }
+  body[data-siyue-platform="collaboration"] dialog.collaboration-drawer > :is(.drawer-body,.dialog-content) { padding: 16px 16px 24px; }
+}

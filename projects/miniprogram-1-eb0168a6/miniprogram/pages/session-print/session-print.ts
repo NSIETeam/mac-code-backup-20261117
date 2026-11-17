@@ -1,0 +1,12 @@
+import {api,run,requestKey} from '../../services/api'
+import {SessionDetail,SessionQuestion} from '../../services/class-sessions'
+Page({
+ data:{id:'',studentId:'',studentName:'',students:[] as {id:string;name:string;count:number;selected:boolean}[],questions:[] as (SessionQuestion&{selected:boolean})[],layout:'analysis',busy:false,loading:true},key:'',
+ onLoad(q:Record<string,string>){this.key=requestKey();this.setData({id:q.id,studentId:q.studentId||''});return run(async()=>{try{const d=await api<SessionDetail>('/class-sessions/'+q.id);const students=d.students.map(s=>({...s,count:d.marks.find(m=>m.studentId===s.id)!.questionIds.length,selected:!q.studentId||q.studentId===s.id})).filter(s=>s.count>0);const mark=d.marks.find(m=>m.studentId===q.studentId);this.setData({students,studentName:d.students.find(s=>s.id===q.studentId)?.name||'',questions:mark?d.questions.filter(x=>mark.questionIds.includes(x.id)).map(x=>({...x,selected:true})):[]})}finally{this.setData({loading:false})}})},
+ student(e:WechatMiniprogram.TouchEvent){this.key=requestKey();this.setData({students:this.data.students.map(s=>s.id===e.currentTarget.dataset.id?{...s,selected:!s.selected}:s)})},
+ question(e:WechatMiniprogram.TouchEvent){this.key=requestKey();this.setData({questions:this.data.questions.map(q=>q.id===e.currentTarget.dataset.id?{...q,selected:!q.selected}:q)})},
+ layout(e:WechatMiniprogram.TouchEvent){this.key=requestKey();this.setData({layout:e.currentTarget.dataset.layout})},
+ zoom(e:WechatMiniprogram.TouchEvent){const q=this.data.questions.find(x=>x.id===e.currentTarget.dataset.id);if(q?.previews.length)wx.previewImage({urls:q.previews,current:q.previews[0]})},
+ directPrint(){return this.generate(true)},
+ generate(direct: boolean | WechatMiniprogram.TouchEvent = false){if(this.data.busy)return;return run(async()=>{const studentIds=this.data.students.filter(s=>s.selected).map(s=>s.id);if(!studentIds.length)throw Error('请选择有错题的学生');const questionIds=this.data.studentId?this.data.questions.filter(q=>q.selected).map(q=>q.id):undefined;if(questionIds&&!questionIds.length)throw Error('请选择要打印的错题');this.setData({busy:true});try{const r=await api<{batchId:string;documents:{id:string}[]}>('/class-sessions/'+this.data.id+'/exports','POST',{studentIds,questionIds,layout:this.data.layout,requestKey:this.key});wx.navigateTo({url:direct === true ? '/pages/export/export?batchId='+r.batchId+'&direct=1' : '/pages/preview/preview?kind=export&id='+r.documents[0].id+'&batchId='+r.batchId})}finally{this.setData({busy:false})}})}
+})

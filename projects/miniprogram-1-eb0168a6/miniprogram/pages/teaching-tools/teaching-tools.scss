@@ -1,0 +1,9 @@
+.tool-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12rpx;margin:24rpx 0}
+.tool-tabs button{width:100%;padding:0 6rpx;font-size:24rpx}
+.teaching .card{margin-top:20rpx}
+.tool-picker{font-weight:600}
+.tool-input{display:block;width:100%;padding:14rpx;margin:16rpx 0;background:#f4f5f4;box-sizing:border-box;border-radius:12rpx}
+textarea.tool-input{height:150rpx}
+.tool-line{display:flex;align-items:center;justify-content:space-between;gap:14rpx;margin-top:14rpx;padding-top:12rpx;border-top:1px solid #e5e7e5}
+.tool-line button{flex-shrink:0;margin:0}
+.tool-step,.tool-text{display:block;margin-top:16rpx;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere}

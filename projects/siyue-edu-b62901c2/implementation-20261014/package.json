@@ -1,0 +1,63 @@
+{
+  "name": "siyue-platform-tools",
+  "version": "1.1.0",
+  "description": "思跃教务平台员工命令行及 MCP 工具",
+  "private": true,
+  "engines": {
+    "node": ">=24.20.0"
+  },
+  "bin": {
+    "siyue-cli": "cli/siyue-cli.cjs",
+    "siyue-mcp": "mcp/server.cjs"
+  },
+  "files": [
+    "cli/siyue-cli.cjs",
+    "cli/auth-client.cjs",
+    "cli/business-client.cjs",
+    "cli/quick-fill.cjs",
+    "cli/account-admin.cjs",
+    "cli/admin-service.cjs",
+    "cli/annotations.cjs",
+    "cli/java-admin.cjs",
+    "cli/query-client.cjs",
+    "cli/java-query-client.cjs",
+    "cli/java-oidc-login.cjs",
+    "cli/java-annotations.cjs",
+    "cli/java-academic.cjs",
+    "cli/java-orders.cjs",
+    "cli/java-feature-operations.cjs",
+    "cli/java-saved-views.cjs",
+    "cli/java-consultations.cjs",
+    "cli/java-service-tickets.cjs",
+    "cli/java-leads.cjs",
+    "cli/java-opportunities.cjs",
+    "cli/java-dictionary.cjs",
+    "cli/java-settings.cjs",
+    "cli/java-forms.cjs",
+    "cli/java-checkouts.cjs",
+    "cli/java-commerce.cjs",
+    "cli/java-campuses.cjs",
+    "cli/java-staff.cjs",
+    "cli/java-positions.cjs",
+    "cli/java-crm-operations.cjs",
+    "cli/java-crm-workflows.cjs",
+    "cli/java-lead-policy.cjs",
+    "cli/java-task-batch.cjs",
+    "cli/java-task-routing.cjs",
+    "cli/java-crm-needs.cjs",
+    "cli/java-customer-identity.cjs",
+    "cli/report-query.cjs",
+    "mcp/server.cjs",
+    "mcp/bridge.cjs",
+    "mcp/java-need-tools.cjs",
+    "mcp/java-identity-tools.cjs",
+    "mcp/java-task-routing-tools.cjs",
+    "mcp/config.example.json",
+    "docs/siyue-cli-mcp.md",
+    "contracts.cjs"
+  ],
+  "scripts": {
+    "build:tools": "node scripts/build-tools.cjs",
+    "test:tools-package": "node --test scripts/build-tools.test.cjs"
+  }
+}

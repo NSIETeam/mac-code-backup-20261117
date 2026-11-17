@@ -1,0 +1,7 @@
+.children { display: flex; flex-wrap: wrap; gap: 16rpx; margin-bottom: 24rpx; }
+.children button.child { flex: 0 0 calc((100% - 16rpx)/2); max-width: calc((100% - 16rpx)/2); min-width: 0; padding: 0 12rpx; }
+.label { margin: 24rpx 0 12rpx; }
+.body { white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.7; font-size: 28rpx; }
+.code { font-size: 36rpx; letter-spacing: 4rpx; padding: 16rpx 0; }
+.next { margin-top: 24rpx; }
+.progress-error { padding: 24rpx; background: #fff0ef; border: 2rpx solid #e5e5ea; border-radius: 24rpx; margin-bottom: 24rpx; }

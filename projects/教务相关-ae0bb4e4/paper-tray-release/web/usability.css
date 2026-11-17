@@ -1,0 +1,169 @@
+/* Shared control geometry and responsive layout for the workbench. */
+:root{--control-height:44px;--control-line:20px}
+button{min-height:var(--control-height);line-height:var(--control-line);padding:11px 16px;max-width:100%}
+input:not([type=checkbox]):not([type=radio]):not([type=file]),select{height:44px;min-height:44px;line-height:20px;padding:10px 12px;min-width:0}
+button.icon{width:44px;height:44px;min-height:44px;padding:0;flex:0 0 44px}
+.actions,.row-actions{align-items:center;gap:10px}
+.actions>button:not(.icon),.row-actions>button:not(.icon){min-width:96px}
+.actions>button.icon{flex:0 0 44px}
+.row{min-width:0;flex-wrap:wrap;padding-block:12px;row-gap:10px}
+.row>.grow{flex:1 1 180px;min-width:0}
+.row>button:not(.icon){flex:0 0 auto;min-width:96px}
+.row>button.icon{flex:0 0 44px}
+.row small{display:block;line-height:1.6;margin-top:4px}
+.card.row{padding:20px 24px}
+.heading,.me-tools{align-items:center}
+main>.page-heading>.actions{flex-wrap:wrap;overflow:visible;align-items:center;padding:0;row-gap:10px}
+main>.page-heading>.actions>button{height:44px}
+body:has(#app>.top){min-width:0}
+.top-inner{min-width:0;gap:14px}
+.top .search{min-width:120px}
+.top .top-inner .search input{padding-left:40px}
+.page-identity{flex:0 1 280px;min-width:0}
+.top-inner .print-drop,.dialog-actions .print-drop{height:44px;min-height:44px;line-height:20px;padding:9px 12px}
+.top-inner>.icon{flex:0 0 44px}
+main,.card,.stack,.grid,.split,.row-actions,.actions{min-width:0}
+.card h2,.row strong{overflow-wrap:anywhere}
+.pill-nav{align-items:stretch}.pill-nav>button{min-width:96px}
+.settings-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.settings-grid button{height:64px;min-width:0;line-height:22px}
+.class-course-entry>.primary,.class-course-names .quiet{min-height:44px;padding:11px 14px;line-height:20px}
+.me-tools h2{flex:1 0 100%;line-height:1.5;margin-bottom:4px!important}
+.material-edition .me-tools select{width:auto;flex:1 1 220px;max-width:360px;height:44px;min-height:44px;padding:10px 12px;line-height:20px}
+.material-edition .me-tools button{height:44px;min-height:44px;padding:11px 16px;line-height:20px;min-width:100px}
+.me-review-actions{align-items:center}.me-review-actions button{min-height:44px;line-height:20px}
+.central-toolbar-action{height:44px!important;min-height:44px!important;padding:11px 14px!important;font-size:14px!important;line-height:20px!important}
+.central-item-actions{display:grid;grid-template-columns:repeat(2,minmax(96px,1fr));width:226px;max-width:100%;align-items:stretch}
+.central-item-actions button,.central-pagination button{min-height:40px;line-height:20px;padding:9px 12px;font-size:13px}
+.central-item-actions button{white-space:normal;overflow-wrap:anywhere}
+.central-filters .central-filter{min-height:36px;padding:7px 10px;line-height:20px}
+.central-tabs .central-tab{min-height:44px;line-height:20px}
+.library-page-nav>button{min-width:96px}
+.table-wrap{max-width:100%;overflow-x:auto}
+.section-edit{min-width:0}.section-edit>label{min-width:0}
+.book-reader-page-form input,.book-reader select{height:36px;min-height:36px;line-height:20px;padding-block:7px}
+.book-reader-toolbar>button{height:36px;min-height:36px}
+.book-reader-dialog>.heading{min-height:60px;height:60px}.book-reader-dialog>.book-reader{height:calc(100% - 60px)}
+.book-reader-dialog>.heading .icon{height:40px;min-height:40px;width:40px;flex-basis:40px;padding:8px}
+.book-reader-embedded{height:max(420px,calc(100dvh - 210px));border:1px solid #c7bba9;border-radius:12px;overflow:hidden;min-width:0;background:#f4f0e9}
+.book-reader-embedded>.book-reader{height:100%}
+.book-reader-embedded .book-reader-content{grid-template-columns:minmax(0,1fr) 200px}
+@media(max-width:1000px){.top-inner{padding-inline:20px}.page-identity{flex-basis:220px}.me-grid{grid-template-columns:minmax(0,1fr) 280px}}
+@media(max-width:760px){
+ .top-inner{flex-wrap:wrap;padding:12px 16px;gap:10px;min-height:0}.page-identity{flex:1 1 160px;max-width:none}.page-identity h1{font-size:19px}.top .search,.top-inner .search{order:5;flex:1 0 100%;min-width:0;max-width:none}.top-inner .account{display:none}
+ main{padding:22px 16px 80px}.heading{gap:10px}.heading .actions{margin-left:0}.dialog-actions{gap:8px}
+ .me-grid{grid-template-columns:1fr}.me-sidebar{position:static!important;max-height:none!important;border-left:0!important;padding-left:0!important}
+ .split{grid-template-columns:1fr}.students{position:static;max-height:none}
+ .book-reader-embedded{height:calc(100dvh - 230px);min-height:400px}.book-reader-embedded .book-reader-content{display:flex}.book-reader-dialog>.heading{height:60px;min-height:60px}.book-reader-dialog>.book-reader{height:calc(100% - 60px)}
+}
+@media(max-width:520px){
+ .top-inner .print-drop span,.dialog-actions .print-drop span{display:none}.top-inner .print-drop,.dialog-actions .print-drop{width:44px;padding:9px;flex-basis:44px}
+ .card{padding:18px}.card.row{padding:18px}.row>.grow{flex-basis:100%}.row>button:not(.icon){flex:1 1 96px}
+ .actions{width:100%;align-items:stretch}.actions>button:not(.icon){flex:1 1 120px;white-space:normal;min-height:44px;height:auto!important;overflow-wrap:anywhere}
+ .dialog-actions{width:auto;align-items:center}.dialog-actions>button{flex:none!important}
+ .heading{flex-wrap:wrap}.heading h2{min-width:0;overflow-wrap:anywhere}.settings-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .central-item-actions{width:100%;grid-template-columns:repeat(2,minmax(0,1fr))}.central-item-actions button{min-width:0}
+ .material-edition .me-tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.material-edition .me-tools h2,.material-edition .me-tools select{grid-column:1/-1;max-width:none;width:100%}.material-edition .me-tools button{min-width:0;width:100%}
+ .print-student-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.grade-tools{grid-template-columns:1fr}.bottom-actions button{height:auto;min-height:48px;white-space:normal}
+ .library-item .library-status{max-width:100%}.class-course-entry{grid-template-columns:minmax(0,1fr) auto}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+.admin-search{display:flex;align-items:center;gap:12px;margin-bottom:16px}.admin-search input{max-width:480px}.admin-search>span{white-space:nowrap;font-size:13px}
+.admin-list>.row[hidden]{display:none!important}
+.admin-list[data-admin-tab=staff]>.row{display:grid;grid-template-columns:minmax(0,1fr) 44px 112px;gap:12px}
+.admin-list[data-admin-tab=staff]>.row>.grow{grid-column:1}.admin-list[data-admin-tab=staff]>.row>.icon{grid-column:2}.admin-list[data-admin-tab=staff]>.row>button:not(.icon){grid-column:3;width:112px}
+@media(max-width:520px){.admin-list[data-admin-tab=staff]>.row{grid-template-columns:minmax(0,1fr) 44px 104px;gap:8px}.admin-list[data-admin-tab=staff]>.row>.grow{grid-column:1/-1}.admin-list[data-admin-tab=staff]>.row>button:not(.icon){width:104px}.admin-search input{min-width:0}}
+.book-reader .book-reader-toolbar input[data-reader-page]{height:36px;min-height:36px;line-height:20px;padding:7px 4px}
+
+/* Class actions belong next to their content. */
+.title-actions{display:flex;align-items:center;gap:6px;flex:0 0 auto}
+.page-identity:has(.title-actions){flex-basis:400px;max-width:480px}
+.page-identity:has(.title-actions) h1{flex:0 1 auto}
+.class-section{display:grid;gap:12px}
+.class-section-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.class-section-heading h2{margin:0}.class-section-heading h2 small{font-weight:400;margin-left:8px}
+.class-student-names{display:flex;flex-wrap:wrap;gap:10px 20px;margin-top:16px}
+.class-student-names>span{overflow-wrap:anywhere}
+@media(max-width:760px){.top-inner .page-identity:has(.title-actions){flex:1 0 100%;max-width:100%}.page-identity:has(.title-actions) h1{white-space:normal;overflow:visible;overflow-wrap:anywhere}.page-identity:has(.title-actions) .title-actions{margin-left:auto}}
+
+/* Names own their editing controls; content lists avoid duplicate navigation bars. */
+.name-with-actions{display:flex;align-items:center;gap:8px;min-width:0}
+.name-with-actions>h2,.name-with-actions>strong{min-width:0;overflow-wrap:anywhere}
+.name-with-actions>button.icon{flex:0 0 44px}
+button.name-link{border:0;background:transparent;border-radius:4px;min-height:44px;max-width:100%;padding:4px 0;text-align:left;justify-content:flex-start;font:inherit;white-space:normal;overflow-wrap:anywhere;text-decoration:underline;text-decoration-color:#ccc;text-underline-offset:4px}
+button.name-link:hover{text-decoration-color:currentColor}
+.admin-list[data-admin-tab=staff]>.row{display:flex;flex-wrap:wrap;align-items:center}
+.admin-list[data-admin-tab=staff]>.row>.grow{flex:1 1 180px}
+.admin-list[data-admin-tab=staff]>.row>button:not(.icon){width:112px;flex:0 0 112px}
+.roster-list>.row>.grow{flex:1 1 180px}
+.review-question>.question-toolbar>.name-with-actions{flex:0 0 auto}
+.course-inline-materials>h2{margin-bottom:14px}.course-book-section+.course-book-section{margin-top:28px}
+.course-book-section>.bookshelf-course-heading{margin-bottom:12px;justify-content:space-between}
+.course-material-rows{margin-top:14px}
+@media(max-width:520px){.admin-list[data-admin-tab=staff]>.row>.grow,.roster-list>.row>.grow{flex-basis:100%}.admin-list[data-admin-tab=staff]>.row>button:not(.icon){margin-left:auto}}
+
+/* Class card controls stay beside the name; the name button also opens the card. */
+.class-card-managed{position:relative;background:#fff;border:1px solid var(--line);gap:12px}
+.class-card-content{min-width:0;flex:1}
+.class-card-title{display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:nowrap}
+.class-card-title h2{margin:0;min-width:0;max-width:100%;flex:0 1 auto}
+.class-card-open{display:block;border:0;border-radius:0;background:transparent;padding:0;min-height:0;text-align:left;white-space:normal;font:inherit;color:inherit;overflow-wrap:anywhere;box-shadow:none}
+.class-card-open::after{content:"";position:absolute;inset:0;border-radius:var(--radius)}
+.class-card-open:hover{background:transparent}
+.class-card-open:focus-visible{outline:0}
+.class-card-open:focus-visible::after{outline:2px solid #555;outline-offset:3px}
+.class-card-tools{display:inline-flex;flex-shrink:0;position:relative;z-index:1;gap:0}
+.class-card-action,.class-card-action:hover,.class-card-action:active{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;min-height:44px;padding:10px;border:0;border-radius:0;background:transparent;box-shadow:none;color:#737373}
+.class-card-action:hover{color:#111}
+.class-card-action.class-card-delete:hover{color:#b42318}
+.class-card-action svg{width:20px;height:20px}
+.class-card-chevron{flex-shrink:0;pointer-events:none}
+
+.lecture-title{display:flex;align-items:center;gap:8px;min-width:0}
+.lecture-title h2{margin:0;min-width:0;overflow-wrap:anywhere}
+.lecture-tools{display:inline-flex;flex-shrink:0}
+.lecture-title+small{display:block;margin-top:8px}
+
+.class-lecture-list{border:1px solid var(--line);border-radius:var(--radius);background:#fff;overflow:hidden}
+.lecture-item{padding:16px 22px;border-bottom:1px solid var(--line)}
+.lecture-item:last-child{border-bottom:0}
+.lecture-main-row{display:flex;align-items:center;gap:20px}
+.lecture-main-row>.grow{min-width:0}
+.lecture-row-actions{flex-shrink:0;display:flex;align-items:center;gap:8px}
+.lecture-row-actions>button{min-height:44px;min-width:104px}
+.lecture-meta{display:inline-block;margin-top:4px;margin-right:8px}
+.lecture-secondary,.lecture-secondary:hover{border:0;background:transparent;box-shadow:none;color:#666}
+.lecture-course-label{font-size:14px;color:#666;margin:0;padding:12px 22px;background:#f8f8f9;border-bottom:1px solid var(--line)}
+.lecture-item>.row{margin-top:8px;padding-top:10px;border-top:1px solid var(--line)}
+@media(max-width:700px){.lecture-item{padding:14px 16px}.lecture-main-row{flex-wrap:wrap;gap:8px}.lecture-main-row>.grow{flex-basis:100%}.lecture-row-actions{width:100%;justify-content:flex-start}.lecture-row-actions>button{flex:0 0 auto;min-width:104px}.lecture-course-label{padding:12px 16px}}
+.top{background:#fff}
+.lecture-main-row>.grow{flex:1 1 0}
+.lecture-title+.lecture-meta{display:inline-block;margin-top:4px}
+@media(max-width:700px){.lecture-main-row>.grow{flex:1 0 100%}}
+
+/* A single compact header and aligned controls on the class overview. */
+body:has(.home-toolbar) .page-identity{display:none}
+body:has(.home-toolbar) .top-inner{max-width:1280px;min-height:60px;padding:8px 32px;gap:8px;flex-wrap:nowrap}
+body:has(.home-toolbar) .top-inner .search{order:0;flex:1 1 auto;min-width:0;max-width:720px;margin:0 auto 0 0}
+body:has(.home-toolbar) main{padding-top:16px}
+.home-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px 20px;flex-wrap:wrap;margin-bottom:16px}
+.home-toolbar>.page-heading{margin:0;min-height:44px}
+.home-toolbar>.page-heading>.actions{display:flex;align-items:center;gap:8px;flex-wrap:nowrap;margin:0;width:auto}
+.home-toolbar>.page-heading>.actions>button{height:44px;min-height:44px;min-width:0;padding:8px 12px;white-space:nowrap}
+.class-creator-filter{display:flex;align-items:center;gap:8px;flex-wrap:nowrap;margin:0}
+.class-creator-filter label{font-size:13px;color:var(--muted);flex-shrink:0}
+.class-creator-filter select{width:auto;max-width:240px;min-width:150px;min-height:44px;margin:0}
+.class-creator-filter [role=status]{font-size:12px;white-space:nowrap}
+.class-card-managed[hidden]{display:none!important}
+@media(max-width:760px){
+ body:has(.home-toolbar) .top-inner{padding-inline:16px}
+ body:has(.home-toolbar) main{padding-top:12px}
+ .home-toolbar{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;margin-bottom:12px}
+ .home-toolbar>.page-heading{width:100%}
+ .home-toolbar>.page-heading>.actions{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);width:100%;gap:6px}
+ .home-toolbar>.page-heading>.actions>button{width:100%;font-size:13px;min-width:0;padding-inline:4px;flex:none}
+ .class-creator-filter{width:100%;gap:8px}
+ .class-creator-filter select{flex:1;min-width:0;max-width:none;font-size:13px}
+}
+@media(max-width:360px){.home-toolbar>.page-heading>.actions>button{font-size:12px;padding-inline:2px}.class-creator-filter label{font-size:12px}.class-creator-filter{gap:6px}.class-creator-filter [role=status]{font-size:11px}}
+
+@media(max-width:760px){.home-toolbar .actions:has(>button:nth-child(5)){display:flex;overflow-x:auto;gap:6px;scrollbar-width:thin}.home-toolbar .actions:has(>button:nth-child(5))>button{flex:0 0 auto;width:auto;padding-inline:10px;min-height:44px}}

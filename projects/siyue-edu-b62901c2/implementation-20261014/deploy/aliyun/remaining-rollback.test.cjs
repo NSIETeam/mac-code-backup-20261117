@@ -1,0 +1,20 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),os=require('node:os'),path=require('node:path'),crypto=require('node:crypto'),{execFileSync}=require('node:child_process');
+const {inventory}=require('./release-source.cjs');
+function fixture(t){const dir=fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(),'siyue-isolated-activation-'))),source=path.join(dir,'source'),out=path.join(dir,'build'),app=path.join(dir,'app'),bin=path.join(dir,'bin');for(const p of [source,out,path.join(app,'releases'),bin])fs.mkdirSync(p,{recursive:true});t.after(()=>fs.rmSync(dir,{recursive:true,force:true}));
+ for(const name of inventory()){const target=path.join(source,name);fs.mkdirSync(path.dirname(target),{recursive:true});fs.copyFileSync(path.resolve(__dirname,'../..',name),target)}
+ // macOS lacks GNU mv -T. The actual Linux script runs unchanged; only its symlink
+ // replacement command is provided using the same atomic rename semantics.
+ if(process.platform==='darwin'){const code=`#!${process.execPath}\nconst fs=require('node:fs');const [flag,src,dst]=process.argv.slice(2);if(flag!=='-Tf'||!fs.lstatSync(src).isSymbolicLink())throw Error('fixture mv only accepts managed symlink rename');fs.renameSync(src,dst);\n`;fs.writeFileSync(path.join(bin,'mv'),code,{mode:0o700})}
+ const env={...process.env,PATH:bin+path.delimiter+process.env.PATH},builder=require(path.join(source,'deploy/aliyun/build-release.cjs')),snapper=require(path.join(source,'deploy/aliyun/release-source.cjs'));
+ function build(id){const snap=path.join(out,id+'-source.json');snapper.createSnapshot(snap);const built=builder.build(out,id,snap);fs.cpSync(built.releaseDirectory,path.join(app,'releases',id),{recursive:true});return built}
+ const activate=id=>execFileSync('sh',[path.join(source,'deploy/aliyun/activate-release.sh'),app,id],{env,encoding:'utf8'});
+ return {dir,source,out,app,build,activate,platform:process.platform==='darwin'?'Darwin with temporary atomic-rename mv shim':'native GNU tools'};
+}
+test('real isolated activation deploys v1 then v2 and rolls back exact served bytes without touching releases',t=>{
+ const f=fixture(t),one=f.build('remaining-v1');assert.match(f.activate('remaining-v1'),/Active release: remaining-v1/);const original=fs.readFileSync(path.join(f.app,'current/public/index.html'));const src=path.join(f.source,'index.html');fs.appendFileSync(src,'\n<!-- isolated release v2 -->\n');f.build('remaining-v2');assert.match(f.activate('remaining-v2'),/Rollback:.*remaining-v1/);assert.equal(fs.readlinkSync(path.join(f.app,'current')),'releases/remaining-v2');assert.equal(fs.readlinkSync(path.join(f.app,'previous')),'releases/remaining-v1');assert.notDeepEqual(fs.readFileSync(path.join(f.app,'current/public/index.html')),original);
+ assert.match(f.activate('remaining-v1'),/Active release: remaining-v1/);assert.deepEqual(fs.readFileSync(path.join(f.app,'current/public/index.html')),original);assert.equal(fs.readlinkSync(path.join(f.app,'previous')),'releases/remaining-v2');assert.match(f.activate('remaining-v1'),/Already active/);assert.equal(crypto.createHash('sha256').update(fs.readFileSync(path.join(one.releaseDirectory,'public/index.html'))).digest('hex'),crypto.createHash('sha256').update(original).digest('hex'));t.diagnostic(f.platform);
+});
+test('isolated activation rejects corrupt checksum or symlink without replacing working current',t=>{
+ const f=fixture(t);f.build('remaining-good');f.activate('remaining-good');f.build('remaining-bad');const bad=path.join(f.app,'releases/remaining-bad/public/index.html');fs.appendFileSync(bad,'corrupted');assert.throws(()=>f.activate('remaining-bad'),/Command failed|FAILED/);assert.equal(fs.readlinkSync(path.join(f.app,'current')),'releases/remaining-good');fs.rmSync(bad);fs.symlinkSync('../SHA256SUMS',bad);assert.throws(()=>f.activate('remaining-bad'),/Command failed|symlinks/);assert.equal(fs.readlinkSync(path.join(f.app,'current')),'releases/remaining-good');
+});

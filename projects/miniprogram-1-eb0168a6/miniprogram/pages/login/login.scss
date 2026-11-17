@@ -1,0 +1,8 @@
+page { background: #fff; }
+.landing { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: stretch; padding: 0 54rpx; box-sizing: border-box; }
+.statement { padding: 0; margin: -65rpx 0 0; background: transparent; border-radius: 0; text-align: left; font-size: 52rpx; font-weight: 700; line-height: 1.65; letter-spacing: -1.5rpx; color: #0f1419; }
+.binding { padding-top: 160rpx; }
+
+.login-fields { margin-top: 56rpx; display: flex; flex-direction: column; gap: 20rpx; }
+.login-input { height: 92rpx; border: 1rpx solid #d8d8dc; border-radius: 24rpx; padding: 0 28rpx; box-sizing: border-box; font-size: 30rpx; }
+button.login-button { margin-top: 24rpx; }

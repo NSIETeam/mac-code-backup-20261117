@@ -1,0 +1,11 @@
+const {test}=require('node:test'),assert=require('node:assert/strict'),vm=require('node:vm'),fs=require('node:fs');
+const src=fs.readFileSync('server/wwwroot/workbench/app.js','utf8').split('function usageDay(')[1];
+function env(role='admin',response={rows:[],snapshotAt:'2026-11-14'}){
+ let html='',calls=[],required=0,listener;
+ const scope={Date,URLSearchParams,workspace:{user:{role}},api:async path=>{calls.push(path);return response},e:x=>String(x).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;'),date:x=>String(x),paint:x=>html=x,heading:x=>`<h1>${x}</h1>`,button:x=>`<button>${x}</button>`,field:()=>'',select:()=>'',go(){},render(){},formData(){},document:{querySelector:()=>({querySelectorAll:()=>[{removeAttribute:()=>required++}],addEventListener:(name,fn)=>listener=fn})}};
+ vm.createContext(scope);vm.runInContext('function usageDay('+src,scope);
+ return {scope,calls,html:()=>html,required:()=>required};
+}
+test('teacher is denied before any statistics request',async()=>{const x=env('teacher');await assert.rejects(()=>x.scope.usageRecordsPage({}),/无权/);assert.equal(x.calls.length,0)});
+test('filters preserve same-name identities and include zero-usage teachers',()=>{const x=env(),rows=[{id:'a',name:'同名',enabled:true,archived:false,campuses:['万博'],status:'无使用记录'},{id:'b',name:'同名',enabled:true,archived:false,campuses:['万博'],status:'有使用记录'},{id:'c',name:'其他',enabled:false,archived:true,campuses:[],status:'无使用记录'}];assert.equal(x.scope.usageFilter(rows,{}).length,2);assert.equal(x.scope.usageFilter(rows,{accounts:'all'}).length,3);assert.equal(x.scope.usageFilter(rows,{q:'同名',campus:'万博',status:'无使用记录'})[0].id,'a')});
+test('HTML is escaped and optional filters permit the all-record selection',async()=>{const x=env('admin',{rows:[{id:'a',name:'<script>bad</script>',enabled:true,archived:false,campuses:[],status:'无使用记录',activeDays:0,loginCount:0,businessCount:0,miniappCount:0,printCount:0,submitted:0,pending:0,failed:0,uncertain:0,lastAt:null}],snapshotAt:'2026-11-14'});await x.scope.usageRecordsPage({start:'2026-11-01',end:'2026-11-14'});assert.ok(x.html().includes('&lt;script&gt;'));assert.ok(!x.html().includes('<script>'));assert.equal(x.required(),1);assert.ok(x.calls[0].includes('start=2026-11-01'))});

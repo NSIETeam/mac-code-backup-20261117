@@ -1,0 +1,1 @@
+Component({properties:{active:{type:String,value:'home'}},methods:{go(e:WechatMiniprogram.TouchEvent){const key=e.currentTarget.dataset.key;if(key===this.data.active)return;const paths:Record<string,string>={home:'/pages/home/home',materials:'/pages/material-library/material-library',me:'/pages/me/me'};if(paths[key])wx.reLaunch({url:paths[key]})}}})

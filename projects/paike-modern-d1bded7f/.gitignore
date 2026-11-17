@@ -1,0 +1,8 @@
+.dev-data/
+data.json*
+users.json*
+password.txt
+backups/
+*.log
+*.bundle
+.DS_Store

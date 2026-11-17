@@ -1,0 +1,2 @@
+import {identity,getProfile,hasWorkSession,publicProfile,json,errorResponse} from '@/lib/server';
+export async function GET(){try{const user=await identity();const profile=await getProfile(user.userId);return json({identity:{userId:user.userId,displayName:user.displayName},profile:profile?publicProfile(profile):null,authenticated:profile?await hasWorkSession(user.userId):false,needsOnboarding:!profile});}catch(e){return errorResponse(e);}}

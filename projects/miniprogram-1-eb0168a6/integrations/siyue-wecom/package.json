@@ -1,0 +1,7 @@
+{
+  "name": "siyue-wecom-assistant",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "node bot.mjs", "test": "node --test" },
+  "dependencies": { "@wecom/aibot-node-sdk": "1.0.7" }
+}

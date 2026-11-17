@@ -1,0 +1,16 @@
+{
+  "name": "siyue-printer-miniprogram",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": { "typecheck": "tsc --noEmit", "test": "node --test tests/miniprogram.test.cjs" },
+  "keywords": [],
+  "author": "",
+  "license": "",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "typescript": "~5.9.3",
+    "miniprogram-automator": "^0.12.1"
+  }
+}

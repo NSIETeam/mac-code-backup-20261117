@@ -1,0 +1,26 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+node_modules/
+*.log
+
+# Private authentication state must never enter the public backup.
+auth.json
+auth.json.lock
+initial-admin.json
+session.json
+.auth-*.tmp
+
+# Private shared business data and backups.
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+business-data/
+backups/
+*.siyue-plan.json
+
+# Java core and isolated TypeScript validation tools
+backend-java/target/
+frontend-tests/node_modules/
+backend-java/.env

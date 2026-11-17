@@ -1,0 +1,23 @@
+operations/.private/
+operations/.venv/
+operations/data/
+operations/backups/
+operations/vendor/**/state/
+__pycache__/
+*.pyc
+
+# Local research, packaged builds, and generated output
+operations/research/
+operations/releases/
+logs/
+output/
+tmp/
+.DS_Store
+.env
+.env.*
+*.pem
+*.key
+
+# Native installer build products
+/dist/
+/build-cache/

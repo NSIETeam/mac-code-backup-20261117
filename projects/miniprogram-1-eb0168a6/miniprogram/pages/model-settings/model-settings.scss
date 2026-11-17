@@ -1,0 +1,6 @@
+.setting-row { display: flex; align-items: center; justify-content: space-between; min-height: 104rpx; gap: 24rpx; }
+.setting-row switch { flex-shrink: 0; }
+.save-button { width: 100%; background: #fff; color: #1d1d1f; border: 2rpx solid #1d1d1f; }
+.save-note { margin: 20rpx 8rpx; }
+
+.probe-actions {display:flex;gap:20rpx;margin-top:20rpx}.probe-actions button{flex:1;margin:0;height:88rpx;border:2rpx solid #1d1d1f;background:#fff;color:#1d1d1f}.field{margin:24rpx 0}

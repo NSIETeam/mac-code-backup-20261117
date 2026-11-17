@@ -1,0 +1,13 @@
+node_modules/
+**/bin/
+**/obj/
+.local/
+.env
+*.user
+*.db*
+logs/
+project.private.config.json
+deploy/fonts/*
+!deploy/fonts/README.md
+agent/vendor/*
+!agent/vendor/README.md

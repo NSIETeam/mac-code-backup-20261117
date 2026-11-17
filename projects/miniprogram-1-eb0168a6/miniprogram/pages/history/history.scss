@@ -1,0 +1,5 @@
+.status-correct { color: #247348; } .status-wrong { color: #ae3232; } .status { font-size: 24rpx; } .excerpt { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin-top: 18rpx; } .history-mask { position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:200;display:flex;align-items:center;padding:24rpx; } .history-dialog { width:100%;max-height:85vh; } .history-scroll {max-height:78vh;} .question-image {width:100%;} .block-text {white-space:pre-wrap;} .row > .grow {min-width:0;}
+
+.history-search { width: 100%; box-sizing: border-box; }
+.history-dialog button.status-correct { color: #247348; border-color: #247348; }
+.history-dialog button.status-wrong { color: #ae3232; border-color: #ae3232; }

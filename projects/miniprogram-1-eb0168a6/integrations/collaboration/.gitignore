@@ -1,0 +1,12 @@
+**/bin/
+**/obj/
+**/__pycache__/
+*.db
+*.db-shm
+*.db-wal
+*.pfx
+*.key
+.env
+secrets.json
+delivery.json
+appsettings.Production.json

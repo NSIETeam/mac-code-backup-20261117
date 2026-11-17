@@ -1,0 +1,3 @@
+const prefix=location.pathname.includes('/miniapp/')?'/miniapp':'',url=prefix+'/collaboration/';
+function mount(){const header=document.querySelector('.top-inner');if(!header||header.querySelector('[data-collaboration-entry]'))return;const a=document.createElement('a');a.dataset.collaborationEntry='true';a.className='quiet';a.href=url;a.textContent='项目协作';a.style.cssText='white-space:nowrap;padding:8px 10px;color:inherit;text-decoration:none;font-size:13px';const print=header.querySelector('.top-print');header.insertBefore(a,print||null);}
+new MutationObserver(mount).observe(document.querySelector('#app')||document.body,{subtree:true,childList:true});mount();

@@ -1,0 +1,13 @@
+.rollcall-page { padding-bottom: calc(200rpx + env(safe-area-inset-bottom)); }
+.rollcall-heading { font-size: 36rpx; font-weight: 600; min-width: 0; overflow-wrap: anywhere; }
+.lesson { margin-top: 24rpx; }
+.roster { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20rpx; }
+button.student { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; width: 100%; min-width: 0; min-height: 128rpx; margin: 0; padding: 24rpx; text-align: left; background: #fff; color: #1d1d1f; border: 2rpx solid #e5e5ea; border-radius: 32rpx; box-sizing: border-box; font-size: 29rpx; line-height: 1.5; white-space: normal; overflow-wrap: anywhere; }
+.student text { max-width: 100%; word-break: break-all; }
+button.student.exception { background: #fff7e7; border-color: #d7b778; }
+button.student.unresolved { border-color: #b9352b; }
+.student-status { font-size: 23rpx; color: #946214; margin-top: 8rpx; }
+button.refresh { width: 176rpx; flex: 0 0 176rpx; padding: 0 12rpx; font-size: 24rpx; }
+.overlay { position: fixed; inset: 0; z-index: 100; background: rgba(29,29,31,.35); display: flex; align-items: flex-end; }
+.transfer-sheet { background: #fff; border-radius: 32rpx 32rpx 0 0; padding: 32rpx 32rpx calc(28rpx + env(safe-area-inset-bottom)); width: 100%; box-sizing: border-box; max-height: 85vh; overflow-y: auto; }
+.incoming { font-size: 26rpx; padding: 12rpx 0; overflow-wrap: anywhere; }

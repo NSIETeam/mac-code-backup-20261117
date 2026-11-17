@@ -1,0 +1,514 @@
+html[data-siyue-theme="ios7"] {
+  --ios-blue: #0068da;
+  --ios-blue-fill: #007aff;
+  --ios-blue-tint: #e9f3ff;
+  --ios-canvas: #f2f2f7;
+  --ios-surface: #fff;
+  --ios-bar: rgba(250, 250, 252, .92);
+  --ios-ink: #1c1c1e;
+  --ios-secondary: #62626b;
+  --ios-line: #d7d7df;
+  --ios-lighter-line: #e6e6eb;
+  --ios-danger: #c82822;
+  --ios-font: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --line: var(--ios-line);
+  --ink: var(--ios-ink);
+  --muted: var(--ios-secondary);
+  --radius: 7px;
+  background: var(--ios-canvas);
+  color: var(--ios-ink);
+  font-family: var(--ios-font);
+}
+
+body[data-siyue-platform] {
+  --platform-shell-width: 176px;
+  min-height: 100vh;
+  margin-left: var(--platform-shell-width);
+  background: var(--ios-canvas);
+  color: var(--ios-ink);
+}
+
+.platform-shell {
+  box-sizing: border-box;
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 25;
+  width: var(--platform-shell-width);
+  padding: 18px 12px;
+  background: var(--ios-bar);
+  border-right: 1px solid var(--ios-line);
+  color: var(--ios-ink);
+  font-family: var(--ios-font);
+  text-align: left;
+}
+
+.platform-shell-brand {
+  padding: 9px 10px 20px;
+  color: var(--ios-ink);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.platform-shell nav {
+  display: grid;
+  gap: 4px;
+  height: auto;
+  align-items: stretch;
+  align-content: start;
+}
+
+.platform-shell nav a {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  min-height: 42px;
+  margin: 0;
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: var(--ios-blue);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.platform-shell nav a:hover { background: var(--ios-blue-tint); text-decoration: none; }
+.platform-shell nav a[aria-current="page"] {
+  background: var(--ios-blue-tint);
+  border-color: transparent;
+  color: var(--ios-blue);
+  font-weight: 600;
+}
+.platform-shell a:focus-visible,
+.platform-shell button:focus-visible {
+  outline: 2px solid #2768b9;
+  outline-offset: 2px;
+}
+
+.platform-shell-toggle,
+.platform-shell-current,
+body[data-siyue-platform] .top-inner [data-ai-lab-entry],
+body[data-siyue-platform] .top-inner [data-collaboration-entry] { display: none; }
+
+@media (max-width: 760px) {
+  body[data-siyue-platform] { margin-left: 0; }
+  body[data-siyue-platform] #app > .top { top: 44px; }
+
+  .platform-shell {
+    position: sticky;
+    inset: 0 auto auto;
+    z-index: 26;
+    width: auto;
+    height: 44px;
+    padding: 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--ios-line);
+  }
+  .platform-shell-heading {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 43px;
+    padding: 0 10px;
+  }
+  .platform-shell-brand { display: none; }
+  .platform-shell-toggle {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 34px;
+    margin: 0;
+    padding: 0 9px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--ios-blue);
+    font-size: 13px;
+    line-height: 1;
+  }
+  .platform-shell-toggle:hover,
+  .platform-shell-toggle[aria-expanded="true"] { background: var(--ios-blue-tint); }
+  .platform-shell-menu-icon {
+    display: block;
+    width: 14px;
+    height: 2px;
+    background: currentColor;
+    box-shadow: 0 -4px currentColor, 0 4px currentColor;
+  }
+  .platform-shell-current {
+    display: block;
+    color: var(--ios-ink);
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .platform-shell nav {
+    display: none;
+    position: absolute;
+    top: 43px;
+    left: 0;
+    width: min(212px, calc(100vw - 16px));
+    padding: 10px;
+    border: 1px solid var(--ios-line);
+    border-radius: 0 0 9px;
+    background: var(--ios-surface);
+    box-shadow: 0 8px 24px rgb(28 28 30 / 12%);
+  }
+  .platform-shell[data-open] nav { display: grid; }
+}
+
+/* The app styles keep their layouts. Shared controls use one color and material system. */
+body[data-siyue-platform] :is(h1,h2,h3) {
+  color: var(--ios-ink);
+  font-weight: 500;
+  letter-spacing: normal;
+}
+body[data-siyue-platform] h1 { font-weight: 400; }
+body[data-siyue-platform] :is(a, summary, .text-button) { color: var(--ios-blue); }
+body[data-siyue-platform] :is(.muted,.account,.header-account,.date-heading) { color: var(--ios-secondary); }
+body[data-siyue-platform] :is(footer,.row + .row,td,.modal-head) { border-color: var(--ios-lighter-line); }
+
+body[data-siyue-platform] button:not(
+  .platform-shell-toggle,.card,.class-card,.class-card-open,.question,.q-state,
+  .step,.student,.status-button,.bookshelf-book,.qb-pick,.text-button,.name-link
+) {
+  background: var(--ios-surface);
+  border-color: var(--ios-line);
+  border-radius: 6px;
+  box-shadow: none;
+  color: var(--ios-blue);
+  text-shadow: none;
+}
+body[data-siyue-platform] :is(button:not(.card,.class-card,.question,.student),a.button):hover:not(:disabled) {
+  background-color: var(--ios-blue-tint);
+}
+body[data-siyue-platform] :is(button.primary,a.primary),
+body[data-siyue-platform] :is(button.primary,a.primary):hover:not(:disabled) {
+  background: var(--ios-blue);
+  border-color: var(--ios-blue);
+  color: white;
+  text-shadow: none;
+  box-shadow: none;
+}
+body[data-siyue-platform] :is(.danger,button.danger) { color: var(--ios-danger); }
+body[data-siyue-platform] :is(button,a,input,select,textarea):focus-visible {
+  outline-color: var(--ios-blue);
+}
+body[data-siyue-platform] :is(input,textarea,select):not([type=checkbox],[type=radio],[type=range],[type=file]) {
+  background-color: var(--ios-surface);
+  border-color: var(--ios-line);
+  border-radius: 6px;
+  box-shadow: none;
+}
+body[data-siyue-platform] :is(input,textarea,select):focus { border-color: var(--ios-blue); }
+body[data-siyue-platform] :is([type=checkbox],[type=radio],[type=range]) { accent-color: var(--ios-blue-fill); }
+
+body[data-siyue-platform] :is(.card,.panel,.table-wrap,.task-card,.central-list,.library-lesson-group,.lecture-item,.print-confirm,.draft-preview) {
+  background: var(--ios-surface);
+  border-color: var(--ios-line);
+  border-width: 1px;
+  border-radius: 7px;
+  box-shadow: none;
+}
+body[data-siyue-platform] :is(.card,.task-card):hover { box-shadow: none; }
+body[data-siyue-platform] :is(.empty,.login form,.search-results) {
+  background: var(--ios-surface);
+  border-color: var(--ios-line);
+  box-shadow: none;
+}
+body[data-siyue-platform] dialog {
+  background: var(--ios-surface);
+  border: 1px solid var(--ios-line);
+  border-radius: 12px;
+  box-shadow: 0 14px 42px rgba(28, 28, 30, .15);
+  color: var(--ios-ink);
+}
+body[data-siyue-platform] dialog::backdrop {
+  background: rgba(28, 28, 30, .25);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+body[data-siyue-platform] :is(.platform-shell,.top,.app-header) {
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  backdrop-filter: blur(16px) saturate(150%);
+}
+body[data-siyue-platform="lab"] > header,
+body[data-siyue-platform="collaboration"] .app-header {
+  background: var(--ios-bar);
+  border-color: var(--ios-line);
+  border-bottom-width: 1px;
+}
+@media (min-width: 761px) {
+  body[data-siyue-platform="lab"] > header { height: 66px; }
+  body[data-siyue-platform="collaboration"] .app-header { min-height: 66px; }
+}
+body[data-siyue-platform="lab"] > header :is(nav button[data-view], #organizer, #training-logout) {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--ios-blue);
+}
+body[data-siyue-platform="lab"] > header nav button.selected {
+  color: var(--ios-blue);
+  font-weight: 600;
+  box-shadow: inset 0 -2px var(--ios-blue-fill);
+}
+body[data-siyue-platform="lab"] .step.selected {
+  outline-color: var(--ios-blue);
+  background: var(--ios-blue-tint);
+}
+body[data-siyue-platform="collaboration"] :is(.brand,.main-nav a.active) { color: var(--ios-blue); }
+body[data-siyue-platform="collaboration"] .main-nav a.active::after { background: var(--ios-blue-fill); }
+body[data-siyue-platform="collaboration"] .header-account a[href$="/workbench/"] { display: none; }
+body[data-siyue-platform="collaboration"] :is(.filter-tabs,.tabs) button {
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  color: var(--ios-secondary);
+}
+body[data-siyue-platform="collaboration"] :is(.filter-tabs,.tabs) button.active {
+  border-bottom-color: var(--ios-blue-fill);
+  color: var(--ios-blue);
+  font-weight: 600;
+}
+@media (min-width: 940px) and (max-width: 1260px) {
+  body[data-siyue-platform="collaboration"] .project-table :is(th,td) { padding-inline: 12px; }
+  body[data-siyue-platform="collaboration"] .project-table td.title { min-width: 215px; }
+  body[data-siyue-platform="collaboration"] .project-table td:nth-child(2) { min-width: 130px; }
+  body[data-siyue-platform="collaboration"] .project-table td:nth-child(3) { min-width: 90px; }
+  body[data-siyue-platform="collaboration"] .project-table td.next-node { min-width: 145px; }
+}
+body[data-siyue-platform="collaboration"] :is(th,.login) {
+  background: var(--ios-surface);
+  border-color: var(--ios-line);
+}
+body[data-siyue-platform="collaboration"] :is(.badge.passed,.badge.tested,.badge.done,.badge.published,.badge.completed,.badge.merged) {
+  background: #e6f5eb;
+  color: #23643d;
+}
+
+/* Recolor the classic workbench without removing its classroom and printing layouts. */
+body.classic-workbench[data-siyue-platform] {
+  --classic-ink: var(--ios-ink);
+  --classic-muted: var(--ios-secondary);
+  --classic-line: var(--ios-line);
+  --classic-surface: var(--ios-surface);
+  --classic-bar: var(--ios-bar);
+  --classic-button: var(--ios-surface);
+  --classic-blue: var(--ios-blue);
+  --classic-picked: var(--ios-blue);
+  --classic-paper: var(--ios-surface);
+  --classic-pinstripe: none;
+  --classic-lip: none;
+  background: var(--ios-canvas);
+}
+body.classic-workbench[data-siyue-platform] :is(.top,dialog > .heading) {
+  background: var(--ios-bar);
+  border-top: 0;
+  border-bottom: 1px solid var(--ios-line);
+  box-shadow: none;
+  color: var(--ios-ink);
+}
+body.classic-workbench[data-siyue-platform] :is(.page-identity h1,.top .account,dialog > .heading h2,.login h1,.login .brand-label) {
+  color: var(--ios-ink);
+  font-weight: 500;
+  text-shadow: none;
+}
+body.classic-workbench[data-siyue-platform] .page-identity button[aria-label="返回"] {
+  min-width: 48px;
+  color: var(--ios-blue);
+  padding-left: 8px;
+}
+body.classic-workbench[data-siyue-platform] .page-identity button[aria-label="返回"]::before {
+  inset: auto auto auto 0;
+  width: 6px;
+  height: 6px;
+  border: solid currentColor;
+  border-width: 0 0 1.5px 1.5px;
+  border-radius: 0;
+  background: none;
+  clip-path: none;
+  transform: rotate(45deg);
+  box-shadow: none;
+}
+body.classic-workbench[data-siyue-platform] .page-identity button[aria-label="返回"]::after { text-shadow: none; }
+body.classic-workbench[data-siyue-platform] :is(.top .search input,#course-library-search) {
+  background: #eeeef3;
+  border-color: transparent;
+  border-radius: 8px;
+  box-shadow: none;
+}
+body.classic-workbench[data-siyue-platform] :is(.top .search.quick-open,.home-toolbar + .grid,.home-toolbar + .grid > .class-card,.course-directory-entry,.linked-course-strip,.review-pages .review-question,.tray-well) {
+  background: var(--ios-surface);
+  border-color: var(--ios-line);
+  box-shadow: none;
+}
+body.classic-workbench[data-siyue-platform] .class-card:hover { background: #f5f9ff; }
+body.classic-workbench[data-siyue-platform] :is(.class-card.add,.central-filter.is-active,.tray-well.drag-active,.print-drop.drag-active) {
+  background: var(--ios-blue-tint);
+  color: var(--ios-blue);
+}
+body.classic-workbench[data-siyue-platform] .central-tabs .central-tab.is-active,
+body.classic-workbench[data-siyue-platform] :is(.pill-nav .active,.student.active,.region-list .selected,.qb-segments button[aria-pressed=true],.review-segments button[aria-pressed=true]) {
+  background: var(--ios-blue);
+  border-color: var(--ios-blue);
+  color: white;
+  text-shadow: none;
+  box-shadow: none;
+}
+body.classic-workbench[data-siyue-platform] :is(.print-drop,.context-link,.home-shortcuts .icon,dialog > .heading .icon) {
+  background: transparent;
+  border-color: transparent;
+  color: var(--ios-blue);
+  text-shadow: none;
+  box-shadow: none;
+}
+
+.platform-shell .platform-inbox-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  min-height: 38px;
+  width: 100%;
+  margin: 14px 0 0;
+  padding: 7px 10px;
+  border: 1px solid var(--ios-line);
+  background: var(--ios-surface);
+  border-radius: 6px;
+  color: var(--ios-blue);
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.platform-inbox-badge {
+  min-width: 18px;
+  padding: 1px 5px;
+  border-radius: 12px;
+  background: var(--ios-blue);
+  color: #fff;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+body[data-platform-inbox] .app-header a[href="#notifications"] { display: none; }
+
+body[data-siyue-platform] dialog.platform-inbox {
+  box-sizing: border-box;
+  width: min(520px, calc(100vw - 24px));
+  max-width: none;
+  max-height: min(680px, calc(100vh - 48px));
+  padding: 0;
+  font-family: var(--ios-font);
+}
+.platform-inbox[open] { display: flex; flex-direction: column; }
+.platform-inbox-header, .platform-inbox-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 0 0 auto;
+  gap: 10px;
+  padding: 12px 16px;
+}
+.platform-inbox-header { border-bottom: 1px solid var(--ios-line); }
+.platform-inbox-header h2 { margin: 0; font-size: 18px; line-height: 1.3; }
+.platform-inbox button { min-height: 32px; padding: 4px 9px; font-size: 13px; }
+.platform-inbox-footer { justify-content: flex-end; font-size: 13px; }
+.platform-inbox-footer:has(> :not([hidden])) { border-top: 1px solid var(--ios-line); }
+.platform-inbox-footer:not(:has(> :not([hidden]))) { padding: 0; }
+.platform-inbox-filter {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  padding: 9px 16px;
+  color: var(--ios-secondary);
+  font-size: 13px;
+}
+.platform-inbox-filter input { margin: 0; }
+.platform-inbox-list { min-height: 0; overflow: auto; overscroll-behavior: contain; }
+.platform-inbox-item {
+  position: relative;
+  display: grid;
+  justify-items: start;
+  gap: 6px;
+  padding: 11px 16px 11px 29px;
+  border-top: 1px solid var(--ios-lighter-line);
+}
+.platform-inbox-item[data-unread]::before {
+  content: "";
+  position: absolute;
+  top: 17px;
+  left: 14px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ios-blue-fill);
+}
+.platform-inbox-item a { overflow-wrap: anywhere; font-size: 14px; }
+.platform-inbox-meta, .platform-inbox-status {
+  margin: 0;
+  color: var(--ios-secondary);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.platform-inbox-status { padding: 12px 16px; }
+.platform-inbox [hidden], .platform-inbox-button [hidden] { display: none; }
+
+@media (max-width: 760px) {
+  .platform-shell .platform-inbox-button {
+    position: absolute;
+    inset: 4px 10px auto auto;
+    width: auto;
+    min-height: 34px;
+    padding: 4px 7px;
+    margin: 0;
+    border-color: transparent;
+    background: transparent;
+    font-size: 13px;
+  }
+  .platform-shell-current {
+    margin-right: 98px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.project-mobile-summary { display: none; }
+@media (max-width: 760px) {
+  body[data-siyue-platform="collaboration"] .project-table table { width: 100%; min-width: 0; }
+  body[data-siyue-platform="collaboration"] .project-table thead,
+  body[data-siyue-platform="collaboration"] .project-table td:not(:first-child) { display: none; }
+  body[data-siyue-platform="collaboration"] .project-table td.title {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+  .project-mobile-summary { display: grid; gap: 5px; margin-top: 8px; }
+  .project-mobile-summary > div { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .project-mobile-summary > small { color: var(--ios-secondary); }
+}
+
+body[data-siyue-platform] .platform-shell :is(.platform-shell-toggle, .platform-inbox-button) {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--ios-blue);
+}
+body[data-siyue-platform] .platform-shell :is(.platform-shell-toggle, .platform-inbox-button):hover,
+body[data-siyue-platform] .platform-shell .platform-shell-toggle[aria-expanded="true"] {
+  background-color: var(--ios-blue-tint);
+}
+body[data-siyue-platform] .platform-shell :is(.platform-shell-toggle, .platform-inbox-button):focus-visible {
+  outline: 2px solid var(--ios-blue);
+  outline-offset: 2px;
+}
+.print-drop .tray-printer { display: block; flex: none; }

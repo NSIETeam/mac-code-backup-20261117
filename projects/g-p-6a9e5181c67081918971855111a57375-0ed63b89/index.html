@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f3f6fc" />
+    <title>文案猫电商工作台</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <aside class="sidebar" id="sidebar">
+      <button class="icon-button menu-button" id="menuToggle" aria-label="切换侧边栏"><svg class="icon"><use href="icons.svg#icon-menu"/></svg></button>
+      <div class="sidebar-content">
+        <div class="brand-mark"><svg class="icon"><use href="icons.svg#icon-spark"/></svg></div>
+        <div class="brand-mini">文案猫<br />电商工作台</div>
+        <nav>
+          <button class="nav-item active" data-view="workspace"><svg class="icon"><use href="icons.svg#icon-home"/></svg><em>工作台</em></button>
+          <button class="nav-item" data-view="chats"><svg class="icon"><use href="icons.svg#icon-chat"/></svg><em>我的对话</em></button>
+          <button class="nav-item" data-view="assets"><svg class="icon"><use href="icons.svg#icon-image"/></svg><em>素材库</em></button>
+          <button class="nav-item" data-view="history"><svg class="icon"><use href="icons.svg#icon-clock"/></svg><em>生成记录</em></button>
+        </nav>
+      </div>
+      <div class="sidebar-bottom">
+        <button class="nav-item" id="helpButton"><svg class="icon"><use href="icons.svg#icon-help"/></svg><em>帮助中心</em></button>
+        <div class="credits"><span>积分余额</span><strong>20</strong></div>
+      </div>
+    </aside>
+
+    <main class="page-shell">
+      <header class="topbar">
+        <div class="topbar-title"><svg class="spark icon"><use href="icons.svg#icon-spark"/></svg> 文案猫电商工作台</div>
+        <div class="top-actions"><button class="guide" id="guideButton"><svg class="icon"><use href="icons.svg#icon-info"/></svg> 指引</button><button class="login" id="loginButton">登录</button></div>
+      </header>
+
+      <section class="hero">
+        <div class="eyebrow">电商人的 AI 工作台</div>
+        <h1>主图、详情页、小红书、短视频<br />一句话开工</h1>
+        <p class="hero-copy">上传产品图或说出任务，GPT、Claude、Gemini 顶级模型直接给你能用的结果。注册即送 20 积分，够生成约 4 张图。</p>
+
+        <div class="quick-prompts" id="quickPrompts">
+          <button data-prompt="请帮我策划 5 张天猫主图，产品卖点是："><svg class="icon"><use href="icons.svg#icon-camera"/></svg> 策划 5 张天猫主图</button>
+          <button data-prompt="请帮我写一篇小红书种草笔记，产品是："><svg class="icon"><use href="icons.svg#icon-book"/></svg> 写小红书种草笔记</button>
+          <button data-prompt="请帮我设计客服绩效 KPI，团队规模是："><svg class="icon"><use href="icons.svg#icon-chart"/></svg> 设计客服绩效 KPI</button>
+          <button data-prompt="请帮我写一段 15 秒带货口播，产品卖点是："><svg class="icon"><use href="icons.svg#icon-video"/></svg> 写 15 秒带货口播</button>
+        </div>
+
+        <div class="composer-wrap">
+          <textarea id="promptInput" placeholder="在这里输入任何问题..." aria-label="输入你的问题"></textarea>
+          <div class="composer-footer">
+            <div class="composer-tools">
+              <label class="tool-control" title="上传文件"><svg class="icon"><use href="icons.svg#icon-plus"/></svg><input id="fileInput" type="file" accept="image/*,.pdf,.doc,.docx,.txt,.csv" hidden /> </label>
+              <button class="tool-control" id="toolButton"><svg class="icon"><use href="icons.svg#icon-tools"/></svg> 工具</button>
+            </div>
+            <div class="composer-actions">
+              <button class="model-select" id="modelButton">Gemini <svg class="icon"><use href="icons.svg#icon-chevron"/></svg></button>
+              <button class="voice" id="voiceButton" aria-label="语音输入"><svg class="icon"><use href="icons.svg#icon-mic"/></svg></button>
+              <button class="send" id="sendButton" aria-label="开始对话"><svg class="icon"><use href="icons.svg#icon-send"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="upload-hint" id="uploadHint"></div>
+      </section>
+
+      <section class="tools-section" id="toolsSection">
+        <div class="section-heading"><div><div class="eyebrow">工具中心</div><h2>按你的任务选择工具</h2></div><p>先选择分类，再从下方挑一个工具开始</p></div>
+        <div class="tabs" role="tablist" id="categoryTabs">
+          <button class="tab active" data-category="作图">作图工具 <span>8</span></button>
+          <button class="tab" data-category="视频">视频工具 <span>4</span></button>
+          <button class="tab" data-category="薪酬">薪酬考核工具 <span>5</span></button>
+          <button class="tab" data-category="管理">管理工具 <span>11</span></button>
+          <button class="tab" data-category="电商">电商工具 <span>13</span></button>
+          <button class="tab" data-category="小红书">小红书 <span>9</span></button>
+        </div>
+        <div class="tool-grid" id="toolGrid"></div>
+      </section>
+      <footer>文案猫出品 <span>客服微信：Corleonwx</span></footer>
+    </main>
+
+    <div class="toast" id="toast" role="status"></div>
+    <section class="workspace-drawer" id="workspaceDrawer" aria-live="polite"></section>
+    <dialog id="loginDialog"><button class="dialog-close" data-close aria-label="关闭"><svg class="icon"><use href="icons.svg#icon-close"/></svg></button><div class="dialog-icon"><svg class="icon"><use href="icons.svg#icon-spark"/></svg></div><h3>登录文案猫</h3><p>登录后可保存对话、使用更多工具和领取积分。</p><form id="loginForm"><input id="loginAccount" required placeholder="手机号 / 微信号" /><button class="dialog-primary" type="submit">继续</button></form></dialog>
+    <dialog id="guideDialog"><button class="dialog-close" data-close aria-label="关闭"><svg class="icon"><use href="icons.svg#icon-close"/></svg></button><div class="dialog-icon"><svg class="icon"><use href="icons.svg#icon-info"/></svg></div><h3>三步开始创作</h3><ol><li>选择一个任务入口，或直接描述你的需求</li><li>补充产品图、卖点和目标平台</li><li>点击发送，获取可直接使用的结果</li></ol><button class="dialog-primary" data-close>知道了</button></dialog>
+    <script src="script.js"></script>
+  </body>
+</html>
